@@ -2,7 +2,7 @@ import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+const isDesktop = window.matchMedia('(min-width: 1024px)');
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -163,4 +163,186 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  const swapIcon = block.querySelector(".icon-search img");
+  swapIcon.src = "../../icons/swap-vert.svg";
+
+
+
+  const userWrapper = document.createElement("div");
+  userWrapper.classList.add("user-wrapper", "hide");
+
+  const settingImg = document.createElement("img");
+  settingImg.src = "../../icons/settings.svg";
+  userWrapper.appendChild(settingImg);
+
+  const userInfo = document.createElement("div");
+  userInfo.className = "user-info";
+  const userName = document.createElement("span")
+  userName.innerText = "Ella Jones";
+  userInfo.appendChild(userName);
+
+  const userPhoto = document.createElement("img");
+  userPhoto.src = "https://einfosoft.com/templates/admin/kuber/source/dark/assets/images/user/admin.jpg";
+  userInfo.appendChild(userPhoto);
+
+  userWrapper.appendChild(userInfo);
+  block.querySelector(".nav-wrapper").appendChild(userWrapper);
+
+  const menuWrap = document.createElement("div");
+  menuWrap.className = "menu-wrap";
+  menuWrap.appendChild(block.querySelector(".nav-hamburger"));
+  menuWrap.appendChild(block.querySelector(".nav-brand"));
+  menuWrap.appendChild(block.querySelector(".nav-tools"));
+
+  document.getElementById("nav").prepend(menuWrap);
+
+  //implementing the swap-vert functionality
+  block.querySelector(".nav-tools").addEventListener('click', () => {
+    userWrapper.classList.toggle("hide");
+  })
+
+  const admin = document.createElement("div");
+  admin.className = "admin";
+  navSections.querySelector(".default-content-wrapper").prepend(admin);
+  admin.innerHTML =
+    `
+  <img src="https://einfosoft.com/templates/admin/kuber/source/dark/assets/images/user/admin.jpg"/>
+  <p class="user-name">Ella Jones</p> 
+  <p class="user-title">Admin</p> 
+ 
+  `
+
+  const icons = {
+
+    "Home": "../../icons/home.svg",
+    "Project": "../../icons/project.svg",
+    "Employee": "../../icons/employee.svg",
+    "Training": "../../icons/training.svg",
+    "Interview": "../../icons/interview.svg"
+  };
+
+
+  navSections.querySelectorAll("ul li a").forEach((list) => {
+    const listImg = document.createElement("img");
+    listImg.classList.add("list-img");
+    const txt = list.textContent.trim();
+    console.log(`Text found: "${txt}"`)
+
+    // console.log(list.innerText)
+    listImg.src = icons[txt];
+    list.prepend(listImg);
+
+  })
+
+
+  navSections.querySelectorAll("ul li").forEach(li => {
+    li.addEventListener("click", function () {
+
+      document.querySelectorAll("ul li").forEach(item => item.classList.remove("active"));
+
+
+      this.classList.add("active");
+    });
+  });
+
+
+
+  function changeMenuStructure() {
+    const screenSize = window.innerWidth;
+    const userWrapper = block.querySelector(".user-wrapper");
+    const navIcon = block.querySelector(".nav-hamburger");
+    const navBrand = block.querySelector(".nav-brand");
+    const menuWrapper = block.querySelector(".menu-wrap");
+
+    if (!userWrapper || !navIcon || !navBrand || !menuWrapper) {
+      console.warn("Some elements are missing, retrying...");
+      setTimeout(changeMenuStructure, 100); // Retry after 100ms
+      return;
+    }
+
+    if (screenSize >= 768) {
+
+      userWrapper.classList.remove("hide");
+
+      if (!block.querySelector(".nav-container")) {
+        const navContainer = document.createElement("div");
+        navContainer.className = "nav-container";
+        navContainer.appendChild(navIcon);
+        navContainer.appendChild(navBrand);
+        menuWrapper.prepend(navContainer);
+      }
+    }
+
+    else if (screenSize < 768) {
+
+      userWrapper.classList.add("hide");
+      menuWrapper.prepend(navBrand);
+      menuWrapper.prepend(navIcon);
+      const navContainer = block.querySelector(".nav-container");
+      navContainer?.remove();
+
+
+      // if(navContainer){
+      //   navContainer.remove();
+      // }
+    }
+
+  }
+
+  //  window.addEventListener("load",changeMenuStructure);
+
+
+
+  window.addEventListener('resize', changeMenuStructure);
+
+  //  window.addEventListener('resize',debounce(changeMenuStructure,300));
+
+  changeMenuStructure();
+
+  //implementing theme functionality
+createThemeBox(block);
+
+
+listenEvents(block);
+
+
+
+}
+function createThemeBox(block){
+  
+  const userWrap = block.querySelector(".user-wrapper");
+  const themeWrap = document.createElement("div");
+  themeWrap.classList = "theme-wrap hide";
+  const lightBtn = document.createElement("button");
+  lightBtn.className = "light-btn";
+  lightBtn.textContent = "Light";
+  const lightBtnImg = document.createElement("img");
+  lightBtnImg.src = "../../icons/sun.svg";
+
+  const darkBtn = document.createElement("button");
+  darkBtn.className = "dark-btn";
+  darkBtn.textContent = "Dark"
+  const darkBtnImg = document.createElement("img");
+  darkBtnImg.src = "../../icons/moon.svg";
+
+  themeWrap.appendChild(lightBtn);
+  themeWrap.appendChild(darkBtn);
+
+  userWrap.appendChild(themeWrap);
+}
+
+
+function listenEvents(block) {
+  block.querySelector('.user-wrapper img')?.addEventListener('click',()=>{
+    block.querySelector('.theme-wrap').classList.toggle("hide");
+  });
+
+  block.querySelector('.light-btn')?.addEventListener('click',() => {
+    document.body.classList.add('light-theme');
+  })
+
+  block.querySelector('.dark-btn')?.addEventListener('click', () => {
+    document.body.classList.remove('light-theme');
+  })
 }
