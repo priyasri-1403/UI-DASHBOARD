@@ -275,3 +275,7 @@ main .filter-container,.employee-type-container,
 main .employee-type-container .default-content-wrapper p{
   font-size: 17px;
 }
+.ag-theme-alpine .ag-ltr input[class^=ag-][type=text]{
+  padding-left: 22px;
+
+}
