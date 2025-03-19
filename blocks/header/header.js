@@ -215,7 +215,7 @@ export default async function decorate(block) {
 
   const icons = {
 
-    "Home": "../../icons/home.svg",
+    // "Home": "../../icons/home.svg",
     "Project": "../../icons/project.svg",
     "Employee": "../../icons/employee.svg",
     "Training": "../../icons/training.svg",
@@ -224,8 +224,8 @@ export default async function decorate(block) {
 
 
   navSections.querySelectorAll("ul li a").forEach((list) => {
-    const listImg = document.createElement("img");
-    listImg.classList.add("list-img");
+    // const listImg = document.createElement("img");
+    // listImg.classList.add("list-img");
     const txt = list.textContent.trim();
     console.log(`Text found: "${txt}"`)
 

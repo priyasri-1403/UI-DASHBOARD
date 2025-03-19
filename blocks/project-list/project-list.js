@@ -4,6 +4,9 @@ export default function decorate(block) {
 
     console.log(url);
 
+    const title =  document.querySelector(".project-list-container p")
+    title.className="page-heading";
+
     async function fetchProjectData() {
         try {
             const response = await fetch(url);
@@ -17,9 +20,12 @@ export default function decorate(block) {
     }
 
     tableContainer.innerHTML = `
-        
+       
+        <div class="inputContainer">
         <input type="text" id="searchBox" placeholder="Search" />
-        <div id="myGrid" class="ag-theme-alpine" style="height: 400px; width: 600px;"></div>
+         <img class = "search-icon" src="../../icons/search.svg"/>
+        </div>
+        <div id="myGrid" class="ag-theme-alpine" style="height: 580px;"></div>
     `;
 
     const searchBox = block.querySelector("#searchBox");
