@@ -11,7 +11,6 @@ import {
   loadSection,
   loadSections,
   loadCSS,
-  getMetadata,
 } from './aem.js';
 
 /**
@@ -54,7 +53,6 @@ function buildAutoBlocks(main) {
   }
 }
 
-
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -68,12 +66,11 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
 }
-export async function fetchEmpData() {
-  const response =  await fetch(getMetadata('employee-url'));
-  const data = response.json();
-  return data;
-  
-}
+// export async function fetchEmpData() {
+//   const response = await fetch(getMetadata('employee-url'));
+//   const data = response.json();
+//   return data;
+// }
 
 /**
  * Loads everything needed to get to LCP.
