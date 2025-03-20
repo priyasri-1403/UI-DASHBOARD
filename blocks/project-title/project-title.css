@@ -1,0 +1,27 @@
+.project-title-container {
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+.project-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.project-description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (width>= 768px) {
+  .project-title {
+    font-size: 2rem;
+  }
+  
+  .project-description {
+    font-size: 1rem;
+  }
+}
