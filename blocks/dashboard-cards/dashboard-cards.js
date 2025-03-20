@@ -2,11 +2,9 @@ export default function decorate(block) {
     const cardsContainer = document.createElement('div');
     cardsContainer.classList.add('dashboard-cards-container');
 
-    // Get all icon elements from the block
     const allIcons = block.querySelectorAll('.icon img');
     const iconElements = Array.from(allIcons);
 
-    // Sample data for dashboard cards
     const cardData = [
         {
             title: 'Team',
@@ -75,13 +73,11 @@ export default function decorate(block) {
         const bgImage = document.createElement('div');
         bgImage.classList.add('card-background-image');
         
-        // Use the corresponding icon based on index, if available
         if (index < iconElements.length) {
             const iconClone = iconElements[index].cloneNode(true);
             bgImage.appendChild(iconClone);
         }
         
-        // Assemble card in the correct order
         card.appendChild(title);
         card.appendChild(value);
         if (progress) card.appendChild(progress);
