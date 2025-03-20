@@ -15,24 +15,23 @@ export default function decorate(block) {
         },
         {
             title: 'Revenue',
-            value: '154',
+            value: '$2453',
             trend: '4% Since last month',
             trendPositive: true,
             showTrend: true
         },
         {
             title: 'Region',
-            value: '524',
+            value: 'India',
             showTrend: false
         },
         {
             title: 'Deadline',
-            value: '$2,453',
+            value: '25/03/2025',
             showTrend: false
         }
     ];
 
-    // Create cards from sample data
     cardData.forEach((data, index) => {
         const card = document.createElement('div');
         card.classList.add('dashboard-card');
@@ -47,14 +46,15 @@ export default function decorate(block) {
         value.classList.add('card-value');
         value.textContent = data.value;
         
-        // Create progress bar
-        const progress = document.createElement('div');
-        progress.classList.add('card-progress');
-        const progressFill = document.createElement('div');
-        progressFill.classList.add('card-progress-fill');
-        progress.appendChild(progressFill);
+        let progress;
+        if (data.title === 'Deadline') {
+            progress = document.createElement('div');
+            progress.classList.add('card-progress');
+            const progressFill = document.createElement('div');
+            progressFill.classList.add('card-progress-fill');
+            progress.appendChild(progressFill);
+        }
         
-        // Create footer with trend info - only for cards with showTrend=true
         let footer;
         if (data.showTrend) {
             footer = document.createElement('div');
@@ -72,7 +72,6 @@ export default function decorate(block) {
             footer.appendChild(trendText);
         }
         
-        // Create background image (the faded icon)
         const bgImage = document.createElement('div');
         bgImage.classList.add('card-background-image');
         
@@ -85,7 +84,7 @@ export default function decorate(block) {
         // Assemble card in the correct order
         card.appendChild(title);
         card.appendChild(value);
-        card.appendChild(progress);
+        if (progress) card.appendChild(progress);
         if (footer) card.appendChild(footer);
         card.appendChild(bgImage);
         

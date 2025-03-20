@@ -70,21 +70,6 @@
   border-radius: 4px;
 }
 
-.dashboard-card:nth-child(1) .card-progress-fill {
-  background-color: #ffcc00;
-  width: 40%;
-}
-
-.dashboard-card:nth-child(2) .card-progress-fill {
-  background-color: #3373c4;
-  width: 35%;
-}
-
-.dashboard-card:nth-child(3) .card-progress-fill {
-  background-color: #69cb43;
-  width: 65%;
-}
-
 .dashboard-card:nth-child(4) .card-progress-fill {
   background-color: #4a90e2;
   width: 30%;
