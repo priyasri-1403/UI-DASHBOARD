@@ -27,14 +27,43 @@
     border-radius: 5px;
     background-color: var(--input-color); 
 }
-
+.input-container input::placeholder{
+    color: var(--heading-color);;
+    
+}
+.ag-root-wrapper{
+    background-color: transparent;
+}
+.ag-theme-alpine .ag-row{
+    color: var(--table-text-color);
+}
+.ag-header-row.ag-header-row-column{
+    color: var(--table-text-color);
+}
 .search-icon{
     position: relative;
     right: 280px;
-
-
+    filter: var(--search-icon-color);
 }
 
  .ag-layout-normal {
     border-radius: 0;
 }
+#myGrid{
+    background-color: var(--table-body);
+}
+.ag-row{
+    background-color: var(--table-body);
+}
+.ag-root-wrapper{
+    border: none;
+}
+.ag-header-container{
+    background-color: var(--table-body);
+    width: 100%;
+}
+.ag-header-row .ag-header-row-column{
+    width: 100%;
+
+}
+

@@ -10,6 +10,8 @@
   /* --dark-color: #505050; */
   --table-header:#020910;
   --table-footer:#1a202e;
+  --table-body:#1a202e;
+  --table-text-color:#96a2b4;
   --side-menu-color:#1a202e;
   --input-color:#12161f;
 
@@ -38,6 +40,7 @@
   --heading-font-size-xs: 22px;
   --text-font-size:14px;
   --svg-icon-color:brightness(0) saturate(100%) invert(95%) sepia(0%) hue-rotate(0deg); /* Default: White Icons (Dark Mode) */
+  --search-icon-color:brightness(0) saturate(100%) invert(62%) sepia(7%) saturate(117%) hue-rotate(169deg);
   
 
 

@@ -362,7 +362,7 @@ header nav[aria-expanded='false'] .nav-hamburger-icon::after {
 }
 
 header nav[aria-expanded='true'] .nav-hamburger-icon {
-  height: 22px;
+  /* height: 22px; */
   transform: scale(0.8);
 } 
 
@@ -475,9 +475,10 @@ header nav .nav-sections ul>li {
   font-weight: 400;
   margin-top: 0.68rem;
   padding: 0.56rem;
-
+  display: flex;
+ font-size: 17px;
   /* font-size: var(--text-font-size); */
-  font-size: 1rem;
+  /* font-size: 1rem; */
   color: var(--text-color);
 
 }
@@ -486,6 +487,7 @@ header nav .nav-sections ul>li {
 header nav .nav-sections ul>li>a{
   display: flex;
   align-items: center;
+  margin-left: 8px;
 }
 
 
