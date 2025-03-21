@@ -9,6 +9,30 @@ export default function decorate(block) {
 
   const tableContainer = block.querySelector('div');
   const url = block.querySelector('.button-container a');
+  
+  setTimeout(() => {
+    const navButton = document.querySelector('.nav-hamburger button');
+    const projectContainer = block.closest('.project-list-container');
+    
+    if (navButton && projectContainer) {
+      // Initial check
+      const nav = document.getElementById('nav');
+      if (nav && nav.getAttribute('aria-expanded') === 'true') {
+        projectContainer.classList.add('table-right-shift');
+      }
+      
+      navButton.addEventListener('click', () => {
+        setTimeout(() => {
+          const isExpanded = nav.getAttribute('aria-expanded') === 'true';
+          if (isExpanded) {
+            projectContainer.classList.add('table-right-shift');
+          } else {
+            projectContainer.classList.remove('table-right-shift');
+          }
+        }, 50);
+      });
+    }
+  }, 500);
 
   //   console.log(url);
 

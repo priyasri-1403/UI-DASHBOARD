@@ -70,8 +70,8 @@
 
 @media ( width >= 1024px) {
     .project-list-container.table-right-shift {
-        width:calc(100vw - 120px);
-        margin-left: 120px;
+        width: calc(100vw - 240px);
+        margin-left: 240px;
     }
     
     .project-list-container{
