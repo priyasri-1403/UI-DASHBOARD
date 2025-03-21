@@ -31,6 +31,7 @@
     color: var(--heading-color);;
     
 }
+
 .ag-root-wrapper{
     background-color: transparent;
 }
@@ -67,3 +68,14 @@
 
 }
 
+@media ( width >= 1024px) {
+    .project-list-container.table-right-shift {
+        width:calc(100vw - 120px);
+        margin-left: 120px;
+    }
+    
+    .project-list-container{
+        width: calc(100vw - 69px);
+        margin-left: 69px;
+    }
+}

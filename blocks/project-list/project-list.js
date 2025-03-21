@@ -1,4 +1,12 @@
 export default function decorate(block) {
+  console.log(document); 
+  
+  const navBox = document.querySelector('.nav-wrapper');
+  console.log(navBox);
+  // if (navBox.querySelector('[aria-expanded = "true"]')) {
+  //   document.querySelector('.project-list-container').classList.add('table-right-shift');
+  // }
+
   const tableContainer = block.querySelector('div');
   const url = block.querySelector('.button-container a');
 
@@ -51,7 +59,7 @@ export default function decorate(block) {
         sortable: true,
         filter: true,
       }));
-    console.log(columnDefs);
+    // console.log(columnDefs);
 
     const gridOptions = {
       columnDefs,
@@ -59,7 +67,7 @@ export default function decorate(block) {
     };
 
     // eslint-disable-next-line no-undef
-    console.log('Checking AG Grid:', agGrid);
+    // console.log('Checking AG Grid:', agGrid);
     // agGrid.createGrid(gridDiv, gridOptions);
     // eslint-disable-next-line no-undef
     const gridApi = agGrid.createGrid(gridDiv, gridOptions);
