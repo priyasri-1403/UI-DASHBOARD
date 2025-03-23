@@ -1,0 +1,38 @@
+.chart-container {
+    border-radius: 0.75rem;
+    background-color: #1a202e;
+    display: flex;
+    flex: 1;
+    height: auto;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .chart-container {
+        flex: 1;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .chart-container {
+        flex: 1;
+        max-width: 50%;
+    }
+}
+
+.apexcharts-menu {
+    background-color: #303030 !important;
+    border-radius: 0.375rem;
+}
+
+.apexcharts-menu .apexcharts-menu-item:hover {
+    background-color: #444444 !important;
+}
+
+.apexcharts-menu .apexcharts-menu-item {
+    text-align: left;
+}
