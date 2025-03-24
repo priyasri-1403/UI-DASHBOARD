@@ -44,7 +44,7 @@ export default function decorate(block) {
                     </div>
                 ` : ''}
                 <div class="card-background-image">
-                    <img src="${data.icon}" alt="${data.title} icon" style="opacity: 0.15; max-width: 80px; max-height: 80px; position: absolute; right: 10px; bottom: 10px; z-index: 0;">
+                    <img src="${data.icon}" alt="${data.title} icon">
                 </div>
             </div>
         `;

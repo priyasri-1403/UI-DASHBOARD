@@ -120,6 +120,12 @@
   height: 100%;
   object-fit: contain;
   filter: brightness(2) contrast(0.8);
+  opacity: 2;
+  max-width: 4rem;
+  max-height: 4rem;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
 }
 
 @media (max-width: 768px) {
