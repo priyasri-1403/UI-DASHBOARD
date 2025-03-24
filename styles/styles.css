@@ -235,10 +235,6 @@ main img {
   filter: var(--svg-icon-color);
 }
 
-/* sections */
-/* main > .section {
-  margin: 40px 0;
-} */
 
 
 main > .section:first-of-type {
@@ -277,4 +273,20 @@ main .employee-type-container .default-content-wrapper p{
 .ag-theme-alpine .ag-ltr input[class^="ag-"][type="text"]{
   padding-left: 22px;
 
+}
+
+.main-container{
+  padding: 0 9px;
+}
+
+@media ( width >= 1024px) {  
+  .main-container{
+      margin-left: 69px;
+      transition: width 0.3s ease ,margin-left 0.3s ease;
+  }
+
+  .main-container-shift {
+      margin-left: 270px;
+  }
+  
 }

@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { fetchAndStoreData, getStoredData, hasStoredData } from '../../utils/datafetch.js';
+import addTranslate from '../../utils/translate.js';
 
 export default function decorate(block) {
   const tableContainer = block.querySelector('div');
@@ -18,21 +19,7 @@ export default function decorate(block) {
 
   lastElement.remove();
 
-  setTimeout(() => {
-    const navButton = document.querySelector('.nav-hamburger button');
-    const projectContainer = block.closest('.project-list-container');
-    const nav = document.getElementById('nav');
-
-    if (navButton && projectContainer) {
-      // Initial check
-      if (nav.getAttribute('aria-expanded') === 'true') {
-        projectContainer.classList.add('table-right-shift');
-      }
-      navButton.addEventListener('click', () => {
-        projectContainer.classList.toggle('table-right-shift');
-      });
-    }
-  }, 150);
+  addTranslate(block, '.project-list-container');
 
   const title = document.querySelector('.project-list-container p');
   title.className = 'page-heading';
