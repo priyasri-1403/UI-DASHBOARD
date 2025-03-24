@@ -10,9 +10,8 @@ export default function decorate(block) {
                 total: 8,
                 fixed: 5,
                 remaining: 3,
-                progress: 62
             },
-            skills: ["HTML", "CSS", "JavaScript", "UX Design", "React"],
+            skills: ["HTML", "CSS", "JavaScript", "EDS", "React"],
             currentSprint: {
                 name: "Sprint 3",
                 startDate: "Mar , 2025",
@@ -103,7 +102,7 @@ export default function decorate(block) {
             ${createSkillsPills(project.skills)}
             ${createCurrentSprint(project.currentSprint)}
             <div class="progress-section">
-                <div class="progress-label">Progress</div>
+                <div class="section-label">Progress</div>
                 <div class="progress-value">${project.progress}%</div>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: ${project.progress}%"></div>

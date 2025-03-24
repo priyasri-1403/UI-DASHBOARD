@@ -1,110 +1,20 @@
-.project-insights-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  .project-card {
+  .project-insights-wrapper .project-card {
     background-color: #1a202c;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    color: #e2e8f0;
-    width: 100%;
-    max-width: 480px;
-    padding: 24px;
+    border-radius: 1rem;
+    max-width: 100%;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    position: relative;
-    overflow: hidden;
+    gap: 1rem;
   }
   
-  /* Header section */
-  .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-  }
-  
-  .project-title-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .check-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #64b5f6;
-  }
-  
-  .check-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .project-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #90caf9;
-    margin: 0;
-  }
-  
-  .project-status {
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
-  .status-testing {
-    background-color: #4caf50;
-    color: #ffffff;
-  }
-  
-  .status-in-progress {
-    background-color: #ff9800;
-    color: #ffffff;
-  }
-  
-  .status-planning {
-    background-color: #2196f3;
-    color: #ffffff;
-  }
-  
-  /* Task count */
-  .task-count {
-    font-size: 15px;
-    color: #64b5f6;
-    font-weight: 500;
-  }
-  
-  /* Description */
-  .project-description {
-    color: #b0bec5;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 8px;
-  }
-  
-  /* Progress section */
   .progress-section {
     display: flex;
     flex-direction: column;
-    margin-top: 6px;
-  }
-  
-  .progress-label {
-    font-size: 14px;
-    color: #90a4ae;
   }
   
   .progress-value {
-    font-size: 14px;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #4caf50;
     align-self: flex-end;
@@ -112,27 +22,26 @@
   
   .progress-bar {
     width: 100%;
-    height: 6px;
+    height: 0.3rem;
     background-color: #2d3748;
-    border-radius: 3px;
-    overflow: hidden;
+    border-radius: 0.25rem;
   }
   
   .progress-fill {
     height: 100%;
     background-color: #4caf50;
-    border-radius: 3px;
+    border-radius: 0.25rem;
   }
   
   /* Skills section */
   .skills-section {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0.75rem;
   }
   
   .section-label {
-    font-size: 16px;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #90caf9;
   }
@@ -140,49 +49,46 @@
   .skills-pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0.5rem;
   }
   
   .skill-pill {
     background-color: #2d3748;
     color: #64b5f6;
     border: 1px solid #3f4c6b;
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
+    border-radius: 4rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
     font-weight: 500;
-    display: inline-block;
     transition: all 0.2s ease;
+    margin-bottom: 0.25rem;
   }
   
   .skill-pill:hover {
     background-color: #3f4c6b;
     transform: translateY(-2px);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
   }
   
   /* Sprint section */
   .sprint-section {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0.75rem;
   }
   
   .sprint-details {
     background-color: #2d3748;
-    border-radius: 8px;
-    padding: 12px;
+    border-radius: 0.6rem;
+    padding: 0.75rem;
   }
   
   .sprint-name {
-    font-size: 15px;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: #e2e8f0;
-    margin-bottom: 4px;
   }
   
   .sprint-dates {
-    font-size: 13px;
+    font-size: 0.8rem;
     color: #90a4ae;
   }
   
@@ -190,24 +96,24 @@
   .bugs-section {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0.75rem;
   }
   
   .bugs-cards {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.75rem;
   }
   
   .bug-card {
-    border-radius: 10px;
-    padding: 16px 20px;
+    border-radius: 0.7rem;
+    padding: 1rem;
     flex: 1;
     min-width: 90px;
-    color: white;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   
   .total-bugs {
@@ -223,19 +129,15 @@
   }
   
   .bug-card-title {
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 500;
-    margin-bottom: 12px;
     position: relative;
-    z-index: 2;
   }
   
   .bug-card-value {
-    font-size: 38px;
+    font-size: 32px;
     font-weight: 700;
     position: relative;
-    z-index: 2;
-    margin-top: 8px;
   }
   
   .bug-card .card-background-image {
@@ -243,8 +145,8 @@
     right: -10px;
     bottom: -10px;
     opacity: 0.1;
-    width: 80px;
-    height: 80px;
+    width: 5rem;
+    height: 5rem;
     z-index: 1;
   }
   
@@ -254,26 +156,76 @@
     stroke-width: 1;
   }
   
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .project-insights-container {
-      flex-direction: column;
+  @media (width >= 768px) {
+    .project-insights-wrapper .project-insights-container {
       align-items: center;
     }
     
-    .project-card {
-      width: 100%;
+    .project-insights-wrapper .project-card {
       max-width: 100%;
+      padding: 1.5rem;
     }
-  }
-  
-  @media (max-width: 600px) {
-    .bugs-cards {
-      flex-direction: column;
+    
+    .section-label {
+      font-size: 1rem;
+    }
+    
+    .skills-section,
+    .sprint-section,
+    .bugs-section {
+      gap: 1rem;
     }
     
     .bug-card {
-      width: 100%;
+      flex-direction: column;
+      padding: 1.2rem 1.5rem;
+    }
+    .bug-card-title {
+      font-size: 1.5rem;
+    }
+  
+    .bug-card-value {
+      font-size: 3rem;
+      margin-top: 0;
+    }
+    
+    .bug-card .card-background-image {
+      width: 8rem;
+      height: 8rem;
+    }
+  }
+  
+  @media (width >= 1024px) {
+    .project-insights-wrapper .project-card {
+      max-width: 480px;
+      margin-top: 2rem;
+    }
+    
+    .bugs-cards {
+      flex-direction: row;
+      gap: 1rem;
+    }
+    
+    .skill-pill {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+    }
+    
+    .bug-card {
+      flex-direction: column;
+      padding: 1.2rem 1.5rem;
+    }
+    
+    .bug-card-title {
+      font-size: 1.2rem;
+    }
+    
+    .bug-card-value {
+      margin-top: 8px;
+    }
+    .bug-card .card-background-image {
+      width: 5rem;
+      height: 5rem;
     }
   }
   
