@@ -1,6 +1,17 @@
+/* eslint-disable no-underscore-dangle */
+import { fetchAndStoreData, getStoredData, hasStoredData } from '../../utils/datafetch.js';
+import addTranslate from '../../utils/translate.js';
+
 export default function decorate(block) {
   const tableContainer = block.querySelector('div');
   const url = block.querySelector('.button-container a');
+
+  if (!window._appData) {
+    window._appData = {};
+  }
+
+  // Store the data source URL globally so other components can use it
+  window._appData.dataSourceUrl = url;
 
   const lastElement = block.lastElementChild;
   const regions = lastElement.querySelector('p').textContent;
@@ -8,35 +19,21 @@ export default function decorate(block) {
 
   lastElement.remove();
 
-  setTimeout(() => {
-    const navButton = document.querySelector('.nav-hamburger button');
-    const projectContainer = block.closest('.project-list-container');
-    const nav = document.getElementById('nav');
-
-    if (navButton && projectContainer) {
-      // Initial check
-      if (nav.getAttribute('aria-expanded') === 'true') {
-        projectContainer.classList.add('table-right-shift');
-      }
-      navButton.addEventListener('click', () => {
-        projectContainer.classList.toggle('table-right-shift');
-      });
-    }
-  }, 150);
+  addTranslate(block, '.project-list-container');
 
   const title = document.querySelector('.project-list-container p');
   title.className = 'page-heading';
 
   async function fetchProjectData() {
-    try {
-      const response = await fetch(url);
-      const jsondata = await response.json();
-
-      return jsondata.data;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      return [];
+    // checking if we already have the data in storage
+    const storageKey = 'projectData';
+    if (hasStoredData(storageKey)) {
+      console.log('using cached project data instead of calling the url every time');
+      const data = getStoredData(storageKey);
+      return data.data;
     }
+    const jsondata = await fetchAndStoreData(url, storageKey);
+    return jsondata.data;
   }
 
   tableContainer.innerHTML = `
@@ -92,12 +89,31 @@ export default function decorate(block) {
     const gridOptions = {
       columnDefs,
       rowData: data,
+      rowSelection: 'single',
+      getRowClass: () => 'clickable-row',
     };
 
     // eslint-disable-next-line no-undef
     // agGrid.createGrid(gridDiv, gridOptions);
     // eslint-disable-next-line no-undef
     const gridApi = agGrid.createGrid(gridDiv, gridOptions);
+    const style = document.createElement('style');
+    style.textContent = `
+    .clickable-row{
+    cursor:pointer
+    }
+    .clickable-row:hover{
+    background-color:#f0f0f0 !important
+    }
+    `;
+    document.head.appendChild(style);
+    gridApi.addEventListener('rowClicked', (event) => {
+      const projectName = event.data.Project;
+      if (projectName) {
+        const dataUrlParam = url ? `&data-source=${encodeURIComponent(url)}` : '';
+        window.location.href = `/project/dashboard?project-name=${encodeURIComponent(projectName)}${dataUrlParam}`;
+      }
+    });
 
     searchBox.addEventListener('input', () => gridApi.setGridOption('quickFilterText', document.getElementById('searchBox').value));
 

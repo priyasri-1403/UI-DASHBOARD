@@ -1,6 +1,4 @@
-.project-list-container{
-    padding: 0 9px;
-}
+
 
 .project-list{
     overflow-x: hidden;
@@ -172,14 +170,4 @@
     cursor: pointer;
 }
 
-@media ( width >= 1024px) {  
-    .project-list-container{
-        margin-left: 69px;
-        transition: width 0.3s ease ,margin-left 0.3s ease;
-    }
 
-    .table-right-shift {
-        margin-left: 270px;
-    }
-    
-}
