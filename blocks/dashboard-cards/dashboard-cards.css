@@ -6,7 +6,7 @@
 
 .dashboard-cards-wrapper .dashboard-cards-container {
   display: flex;
-  gap: 24px;
+  gap: 1rem;
   width: 100%;
   flex-wrap: wrap;
   justify-content: flex-start;
