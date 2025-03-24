@@ -284,26 +284,6 @@ export default async function decorate(block) {
  
   `;
 
-  // const icons = {
-
-  //   // "Home": "../../icons/home.svg",
-  //   Project: '../../icons/project.svg',
-  //   Employee: '../../icons/employee.svg',
-  //   Training: '../../icons/training.svg',
-  //   Interview: '../../icons/interview.svg',
-  // };
-
-  navSections.querySelectorAll('ul li a').forEach((list) => {
-    // const listImg = document.createElement("img");
-    // listImg.classList.add("list-img");
-    const txt = list.textContent.trim();
-    console.log(`Text found: "${txt}"`);
-
-    // console.log(list.innerText)
-    // listImg.src = icons[txt];
-    // list.prepend(listImg);
-  });
-
   navSections.querySelectorAll('ul li').forEach((li) => {
     li.addEventListener('click', () => {
       document.querySelectorAll('ul li').forEach((item) => item.classList.remove('active'));

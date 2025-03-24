@@ -1,33 +1,28 @@
 export default function decorate(block) {
-
   const tableContainer = block.querySelector('div');
   const url = block.querySelector('.button-container a');
-  
+
   const lastElement = block.lastElementChild;
   const regions = lastElement.querySelector('p').textContent;
   const regionList = regions.split(',').map((region) => region.trim());
-  console.log(regionList);
 
   lastElement.remove();
-  
+
   setTimeout(() => {
     const navButton = document.querySelector('.nav-hamburger button');
     const projectContainer = block.closest('.project-list-container');
     const nav = document.getElementById('nav');
-    
+
     if (navButton && projectContainer) {
       // Initial check
-      if(nav.getAttribute('aria-expanded') === 'true'){
+      if (nav.getAttribute('aria-expanded') === 'true') {
         projectContainer.classList.add('table-right-shift');
       }
       navButton.addEventListener('click', () => {
-        projectContainer.classList.toggle("table-right-shift");      
-      
+        projectContainer.classList.toggle('table-right-shift');
       });
     }
   }, 150);
-
-  //   console.log(url);
 
   const title = document.querySelector('.project-list-container p');
   title.className = 'page-heading';
@@ -36,7 +31,7 @@ export default function decorate(block) {
     try {
       const response = await fetch(url);
       const jsondata = await response.json();
-      //   console.log(jsondata.data);
+
       return jsondata.data;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -47,24 +42,30 @@ export default function decorate(block) {
   tableContainer.innerHTML = `
        
         <div class="input-container">
-           <input type="text" id="searchBox" placeholder="Search" />
-           <img class = "search-icon" src="../../icons/search.svg"/>
-           <div class = "filter-box">
-             <select id="regionDropdown">
-              <option value="">Select Region</option>
-             </select>
+        <div class ='search-container'>
+        <img class = "search-icon" src="../../icons/search.svg"/>
+             <input class = "search-input" type="text" id="searchBox" placeholder="Search" />
+                 </div>
+             <div class = "filter-box">
+               
 
-           <div class = 'column-filterBox'> <img src="../../icons/filter-list.svg"/>
-            <div id='column-filters' class = "toggle-column hide">Show/Hide column</div>
+               <div class = 'column-filter-box'>
+                  <img class = "filter-icon" src="../../icons/filter-list.svg"/>
+               <div id='column-filters' class = "toggle-column hide">
+               <span class ="toggle-title">Show/Hide Column</span>
+               </div>
            </div>
-          </div>
-          </div>
-        <div id="myGrid" class="ag-theme-alpine" style="height: 580px;"></div>
+           <select id="region-dropdown">
+                 <option value="">Select Region</option>
+               </select>
+        </div>
+      </div>
+    <div id="my-grid" class="ag-theme-alpine" style="height: 580px;"></div>
     `;
 
   const searchBox = block.querySelector('#searchBox');
-  const gridDiv = block.querySelector('#myGrid');
-  const regionDropdown = block.querySelector('#regionDropdown');
+  const gridDiv = block.querySelector('#my-grid');
+  const regionDropdown = block.querySelector('#region-dropdown');
 
   const nonHeaders = [
     'Project Status Notes (Project)',
@@ -74,7 +75,6 @@ export default function decorate(block) {
   ];
 
   fetchProjectData().then((data) => {
-    console.log(data)
     if (data.length === 0) {
       console.warn('No data available for AG Grid.');
       return;
@@ -88,7 +88,6 @@ export default function decorate(block) {
         sortable: true,
         filter: true,
       }));
-    // console.log(columnDefs);
 
     const gridOptions = {
       columnDefs,
@@ -96,52 +95,58 @@ export default function decorate(block) {
     };
 
     // eslint-disable-next-line no-undef
-    // console.log('Checking AG Grid:', agGrid);
     // agGrid.createGrid(gridDiv, gridOptions);
     // eslint-disable-next-line no-undef
     const gridApi = agGrid.createGrid(gridDiv, gridOptions);
 
     searchBox.addEventListener('input', () => gridApi.setGridOption('quickFilterText', document.getElementById('searchBox').value));
 
-    regionList.forEach(region => {
-      const option = document.createElement("option");
-      option.value=region;
+    regionList.forEach((region) => {
+      const option = document.createElement('option');
+      option.value = region;
       option.textContent = region;
       regionDropdown.appendChild(option);
-    })
-   
-    regionDropdown.addEventListener('change',() =>{
-      const selectedRegion = regionDropdown.value;
-      gridApi.setGridOption("rowData",selectedRegion ? data.filter(row => row["Region (Project)"] === selectedRegion) : data)
-    })
+    });
 
-    const columnFilterBox = document.querySelector('.column-filterBox');
+    regionDropdown.addEventListener('change', () => {
+      const selectedRegion = regionDropdown.value;
+      gridApi.setGridOption('rowData', selectedRegion ? data.filter((row) => row['Region (Project)'] === selectedRegion) : data);
+    });
+
+    const filterIcon = block.querySelector('.filter-icon');
     const columnCheckBox = document.getElementById('column-filters');
-    // columnFilterBox.addEventListener('click',columnCheckBox.classList.toggle('hide'))
+    const columnFilterBox = block.querySelector('.column-filter-box');
+
+    filterIcon.addEventListener('click', () => columnCheckBox.classList.toggle('hide'));
+
+    document.addEventListener('click', (e) => {
+      if (!columnCheckBox.classList.contains('hide') && !columnFilterBox.contains(e.target)) {
+        columnCheckBox.classList.add('hide');
+      }
+    });
 
     columnDefs.forEach((col) => {
       const checkbox = document.createElement('input');
-      checkbox.type='checkbox';
-      checkbox.checked=!col.hide; 
+      checkbox.type = 'checkbox';
+      checkbox.className = 'checkbox';
+      checkbox.checked = !col.hide;
       checkbox.dataset.field = col.field;
 
       const label = document.createElement('label');
       label.textContent = col.headerName;
-      label.appendChild(checkbox);
-      columnCheckBox.appendChild(label);
 
-      checkbox.addEventListener('change',() =>{
+      const container = document.createElement('div');
+      container.appendChild(label);
+      container.appendChild(checkbox);
+      container.className = 'project-filter-container-item';
+
+      columnCheckBox.appendChild(container);
+      checkbox.addEventListener('change', () => {
         gridApi.applyColumnState({
           state: [{ colId: col.field, hide: !checkbox.checked }],
           applyOrder: true,
         });
       });
-
     });
-
-
   });
- 
- 
-  
 }
