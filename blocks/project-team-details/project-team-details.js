@@ -82,7 +82,7 @@ export default function decorate(block) {
     const headerHTML = `
         <div class="grid-header">
             <div class="grid-title">
-                <h2>Employees</h2>
+                <h2>Team Members</h2>
                 <div class="search-container">
                     <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -178,14 +178,16 @@ export default function decorate(block) {
     // Function to generate column definitions from data
     function generateColumnDefs(data) {
         const columnDefs = [];
+        const isMobile = window.innerWidth < 768;
         
         const fields = Object.keys(data[0]);
         fields.forEach(field => {
             const colDef = {
                 headerName: field.charAt(0).toUpperCase() + field.slice(1),
                 field: field,
-                width: 150,
-                hide: false
+                width: isMobile ? 130 : 150,
+                hide: isMobile && (field === 'department' || field === 'mobile'),
+                minWidth: isMobile ? 100 : 120
             };
             columnDefs.push(colDef);
         });
@@ -199,29 +201,20 @@ export default function decorate(block) {
         columnDefs: columnDefs,
         rowData: teamData,
         pagination: true,
-        paginationPageSize: 10,
-        paginationPageSizeSelector: [10, 20, 50, 100],
+        paginationPageSize: window.innerWidth < 768 ? 5 : 10,
+        paginationPageSizeSelector: window.innerWidth < 768 ? [5, 10, 20] : [10, 20, 50, 100],
         domLayout: 'autoHeight',
         defaultColDef: {
-            sortable: true,
-            filter: true,
+            sortable: false,
+            filter: false,
             resizable: true,
-            suppressMenu: true,
-            suppressFiltersToolPanel: true,
             menuTabs: []
         },
-        rowHeight: 60,
-        headerHeight: 48,
-        suppressContextMenu: true,
-        suppressCellSelection: true,
-        suppressMenuHide: true,
-        icons: {
-            menu: false
-        },
+        rowHeight: window.innerWidth < 768 ? 50 : 60,
+        headerHeight: window.innerWidth < 768 ? 40 : 48,
         onGridReady: (params) => {
             gridApi = params.api;
             params.api.sizeColumnsToFit();
-            // Initialize column visibility menu
             updateColumnVisibilityMenu();
         }
     };

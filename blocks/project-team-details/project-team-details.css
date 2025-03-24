@@ -1,21 +1,20 @@
 .team-details-wrapper {
-    margin: 20px;
+    margin: 2rem 0;
     background: #1A1F2C;
-    border-radius: 8px;
+    border-radius: 0.6rem;
     overflow: hidden;
-    padding: 20px;
+    padding: 3rem;
 }
 
 .team-details-wrapper .grid-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
 }
 
 .team-details-wrapper .grid-title {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 24px;
 }
 
@@ -43,8 +42,8 @@
     border: none;
     color: #fff;
     outline: none;
-    width: 200px;
-    font-size: 14px;
+    width: 12rem;
+    font-size: 0.8rem;
 }
 
 .team-details-wrapper .search-container input::placeholder {
@@ -53,7 +52,7 @@
 
 .team-details-wrapper .grid-controls {
     display: flex;
-    gap: 8px;
+    gap: 0.5rem;
     position: relative;
 }
 
@@ -61,7 +60,7 @@
     background: #2A2F3A;
     border: none;
     border-radius: 4px;
-    padding: 8px;
+    padding: 0.5rem;
     color: #8B8FA3;
     cursor: pointer;
     margin: 0;
@@ -92,10 +91,10 @@
 
 .team-details-wrapper .columns-menu {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 0.5rem);
     right: 0;
     background: #2A2F3A;
-    border-radius: 8px;
+    border-radius: 0.4rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     z-index: 9999;
     min-width: 220px;
@@ -108,17 +107,16 @@
 }
 
 .team-details-wrapper .columns-menu-header {
-    padding: 12px 16px;
+    padding: 0.7rem 1rem;
     border-bottom: 1px solid #3A3F4A;
     color: #fff;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.8rem;
     background: #1A1F2C;
 }
 
 .team-details-wrapper .columns-list {
-    padding: 8px 0;
-    max-height: 300px;
+    padding: 0.7rem 1rem;
     overflow-y: auto;
 }
 
@@ -126,7 +124,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 16px;
+    padding: 0.7rem 1rem;
     color: #fff;
     transition: background-color 0.2s;
     cursor: pointer;
@@ -146,28 +144,9 @@
 .team-details-wrapper .column-item label {
     cursor: pointer;
     user-select: none;
-    font-size: 14px;
+    font-size: 0.8rem;
     color: #fff;
     margin: 0;
-}
-
-/* Custom scrollbar for the columns menu */
-.team-details-wrapper .columns-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.team-details-wrapper .columns-list::-webkit-scrollbar-track {
-    background: #1A1F2C;
-    border-radius: 3px;
-}
-
-.team-details-wrapper .columns-list::-webkit-scrollbar-thumb {
-    background: #3A3F4A;
-    border-radius: 3px;
-}
-
-.team-details-wrapper .columns-list::-webkit-scrollbar-thumb:hover {
-    background: #4A4F5A;
 }
 
 /* AG Grid customizations */
@@ -185,67 +164,28 @@
     --ag-cell-horizontal-padding: 16px;
     font-family: inherit;
 }
+/* Responsive styles */
+@media (width>= 768px) {
+    .team-details-wrapper {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
 
-.team-details-wrapper .ag-theme-alpine-dark .ag-header-cell {
-    border-right: none;
+    .team-details-wrapper .grid-controls {
+        width: 100%;
+        justify-content: flex-end;
+    }
 }
 
-.team-details-wrapper .ag-theme-alpine-dark .ag-cell {
-    border-right: none;
+@media (width>= 1024px) {
+    .team-details-wrapper {
+        padding: 2rem;
+    }
+ 
+    .team-details-wrapper .grid-title {
+        flex-direction: row;
+        gap: 1rem;
+        width: 100%;
+    }
 }
 
-.team-details-wrapper .ag-theme-alpine-dark .ag-checkbox-input-wrapper {
-    border: 2px solid #8B8FA3;
-    border-radius: 4px;
-    width: 18px;
-    height: 18px;
-    background: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.team-details-wrapper .ag-theme-alpine-dark .ag-checkbox-input-wrapper.ag-checked {
-    background-color: #3B82F6;
-    border-color: #3B82F6;
-}
-
-.team-details-wrapper .avatar-name {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.team-details-wrapper .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: #2A2F3A;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.team-details-wrapper .avatar img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-}
-
-.team-details-wrapper .mobile,
-.team-details-wrapper .email {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #8B8FA3;
-}
-
-.team-details-wrapper .gender-tag {
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 0.9em;
-    display: inline-flex;
-    align-items: center;
-    background: rgba(76, 175, 80, 0.1);
-}

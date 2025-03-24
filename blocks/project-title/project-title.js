@@ -1,3 +1,5 @@
+import addTranslate from '../../utils/translate.js';
+
 export default function decorate(block) {
   const projectData = {
     name: 'Panasonic',
@@ -34,5 +36,6 @@ export default function decorate(block) {
     default:
       statusLabel.textContent = 'Status Unknown';
   }
+  addTranslate(block, '.fragment-wrapper');
 }
 
