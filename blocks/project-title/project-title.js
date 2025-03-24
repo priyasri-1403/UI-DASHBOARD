@@ -1,46 +1,26 @@
 export default function decorate(block) {
-  const titleContainer = document.createElement('div');
-  titleContainer.classList.add('project-title-container');
-
   const projectData = {
     name: 'Panasonic',
     description: 'Panasonic is a Japanese multinational electronics company',
     status: 'red' // Can be 'red', 'amber', or 'green'
   };
-  
-  // Create header wrapper
-  const headerWrapper = document.createElement('div');
-  headerWrapper.classList.add('project-header-wrapper');
-  
-  // Create project info section (title and description column)
-  const projectInfo = document.createElement('div');
-  projectInfo.classList.add('project-info');
-  
-  // Create title element
-  const titleElement = document.createElement('h1');
-  titleElement.classList.add('project-title');
-  titleElement.textContent = projectData.name;
-  
-  // Create subtitle element
-  const subtitleElement = document.createElement('p');
-  subtitleElement.classList.add('project-description');
-  subtitleElement.textContent = projectData.description;
-  
-  // Add title and description to project info section
-  projectInfo.appendChild(titleElement);
-  projectInfo.appendChild(subtitleElement);
-  
-  // Create status indicator
-  const statusWrapper = document.createElement('div');
-  statusWrapper.classList.add('project-status-wrapper', `status-${projectData.status}`);
-  
-  const statusIndicator = document.createElement('div');
-  statusIndicator.classList.add('status-indicator', `status-${projectData.status}`);
-  
-  const statusLabel = document.createElement('span');
-  statusLabel.classList.add('status-label');
-  
-  // Set the appropriate status text
+
+  block.innerHTML = `
+    <div class="project-title-container">
+      <div class="project-header-wrapper">
+        <div class="project-info">
+          <h1 class="project-title">${projectData.name}</h1>
+          <p class="project-description">${projectData.description}</p>
+        </div>
+        <div class="project-status-wrapper status-${projectData.status}">
+          <div class="status-indicator status-${projectData.status}"></div>
+          <span class="status-label"></span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const statusLabel = block.querySelector('.status-label');
   switch(projectData.status) {
     case 'red':
       statusLabel.textContent = 'At Risk';
@@ -54,17 +34,5 @@ export default function decorate(block) {
     default:
       statusLabel.textContent = 'Status Unknown';
   }
-  
-  statusWrapper.appendChild(statusIndicator);
-  statusWrapper.appendChild(statusLabel);
-  
-  // Assemble the components
-  headerWrapper.appendChild(projectInfo);
-  headerWrapper.appendChild(statusWrapper);
-  titleContainer.appendChild(headerWrapper);
-
-  // Replace block content with our title container
-  block.textContent = '';
-  block.appendChild(titleContainer);
 }
 

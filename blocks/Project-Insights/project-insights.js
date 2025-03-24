@@ -120,7 +120,6 @@ export default function decorate(block) {
         projectsContainer.appendChild(card);
     });
 
-    // Replace block content with our projects container
     block.textContent = '';
     block.appendChild(projectsContainer);
 } 

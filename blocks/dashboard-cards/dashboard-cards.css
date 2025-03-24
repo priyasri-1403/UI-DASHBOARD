@@ -129,10 +129,6 @@
 }
 
 @media (max-width: 768px) {
-  .dashboard-cards-wrapper .dashboard-cards-container {
-    align-items: flex-start;
-  }
-  
   .dashboard-cards-wrapper .dashboard-card {
     width: 100%;
     max-width: 320px;
