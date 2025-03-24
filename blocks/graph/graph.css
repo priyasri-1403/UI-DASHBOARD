@@ -1,24 +1,14 @@
-.chart-container {
+.graph-wrapper {
     border-radius: 0.75rem;
     background-color: #1a202e;
-    display: flex;
-    flex: 1;
     height: auto;
-    justify-content: center;
     margin: 0 auto;
     max-width: 100%;
     padding: 1rem;
 }
 
-@media (min-width: 768px) {
-    .chart-container {
-        flex: 1;
-        max-width: 100%;
-    }
-}
-
 @media (min-width: 1024px) {
-    .chart-container {
+    .graph-wrapper {
         flex: 1;
         max-width: 50%;
     }
