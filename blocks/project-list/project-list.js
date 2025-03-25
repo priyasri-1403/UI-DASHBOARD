@@ -12,12 +12,7 @@ export default function decorate(block) {
 
   // Store the data source URL globally so other components can use it
   window._appData.dataSourceUrl = url;
-
-  const lastElement = block.lastElementChild;
-  const regions = lastElement.querySelector('p').textContent;
-  const regionList = regions.split(',').map((region) => region.trim());
-
-  lastElement.remove();
+  let regionList;
 
   addTranslate(block, '.project-list-container');
 
@@ -116,7 +111,7 @@ export default function decorate(block) {
     });
 
     searchBox.addEventListener('input', () => gridApi.setGridOption('quickFilterText', document.getElementById('searchBox').value));
-
+    regionList = [...new Set(data.map((row) => row['Region (Project)']))];
     regionList.forEach((region) => {
       const option = document.createElement('option');
       option.value = region;
