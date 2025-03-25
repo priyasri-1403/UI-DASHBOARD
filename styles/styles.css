@@ -279,6 +279,10 @@ main .employee-type-container .default-content-wrapper p{
   padding: 0 9px;
 }
 
+.main-container-shift{
+  padding: 0 9px;
+}
+
 @media ( width >= 1024px) {  
   .main-container{
       margin-left: 69px;
@@ -287,6 +291,7 @@ main .employee-type-container .default-content-wrapper p{
 
   .main-container-shift {
       margin-left: 270px;
+      transition: width 0.3s ease ,margin-left 0.3s ease;
   }
   
 }
