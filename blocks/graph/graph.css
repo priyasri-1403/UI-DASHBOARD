@@ -1,26 +1,19 @@
-.chart-container {
+.graph-wrapper {
     border-radius: 0.75rem;
     background-color: #1a202e;
-    display: flex;
-    flex: 1;
     height: auto;
-    justify-content: center;
-    margin: 0 auto;
     max-width: 100%;
-    padding: 1rem;
-}
+    margin-top: 2rem;
+    padding: 1.5rem;
 
-@media (min-width: 768px) {
-    .chart-container {
-        flex: 1;
-        max-width: 100%;
-    }
 }
 
 @media (min-width: 1024px) {
-    .chart-container {
-        flex: 1;
-        max-width: 50%;
+    .graph-wrapper {
+        display: inline-block;
+        margin-right:4rem;
+        min-width: 50%;
+        padding: 2rem;
     }
 }
 

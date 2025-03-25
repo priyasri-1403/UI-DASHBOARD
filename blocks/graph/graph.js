@@ -1,144 +1,114 @@
-function processChartData(sheetData, sheetName) {
-  const weeks = sheetData.map((item) => item.weeks);
-  const bugs = sheetData.map((item) => item.bugs);
-  const fixedBugs = sheetData.map((item) => item['fixed bugs']);
-  const graphBlock = document.querySelector('.graph.block');
-  graphBlock.innerHTML = '';
+export default function decorate(block) {
+    // Create the projects container
+    const graphContainer = document.createElement('div');
+    graphContainer.classList.add('graph-container');
+    
+    // Clear existing content in the block and append the graph container
+    block.textContent = '';
+    block.appendChild(graphContainer);
 
-  const chartContainer = document.createElement('div');
-  chartContainer.classList.add('chart-container');
-  graphBlock.appendChild(chartContainer);
-  const options = {
-    chart: {
-      type: 'line',
-      height: 350,
-      foreColor: '#FFFFFF',
-      toolbar: {
-        show: true,
-        tools: {
-          zoom: false,
-          zoomin: false,
-          zoomout: false,
-          pan: false,
-          reset: false,
+    
+    // Replace block content with our projects container
+    const project1 = {
+        "data": [
+            { "weeks": "week1", "bugs": 12, "fixed bugs": 8 },
+            { "weeks": "week2", "bugs": 20, "fixed bugs": 17 },
+            { "weeks": "week3", "bugs": 7, "fixed bugs": 4 },
+            { "weeks": "week4", "bugs": 8, "fixed bugs": 7 }
+        ]
+    };
+
+    console.log(project1);
+
+    // Extract the weeks, bugs, and fixed bugs data for Project 1
+    const weeks = project1.data.map(item => item.weeks);
+    console.log(weeks);
+    const project1Bugs = project1.data.map(item => item.bugs);
+    console.log(project1Bugs);
+    const project1FixedBugs = project1.data.map(item => item["fixed bugs"]);
+    console.log(project1FixedBugs);
+
+    // Create the chart options for Project 1
+    const options = {
+        chart: {
+            type: 'line',
+            height: 405,
+            foreColor: '#FFFFFF',
+        toolbar: {
+          show: true,
+          tools: {
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false,
+          },
         },
+        },
+        legend: {
+            show: true,
+          },
+          title: {
+            text: 'Project Bugs',
+            align: 'left',
+            style: {
+              fontWeight: 'none',
+              fontSize: '20px',
+              fontFamily: 'Arial, sans-serif',
+            },
+          },
+        series: [
+            {
+                name: 'Project 1 Bugs',
+                data: project1Bugs
+            },
+            {
+                name: 'Project 1 Fixed Bugs',
+                data: project1FixedBugs
+            }
+        ],
+        stroke: {
+            curve: 'smooth',
+            width: 3,
+          },
+          markers: {
+            size: 6,
+            colors: ['#FF6347', '#32CD32'],
+            strokeColor: '#fff',
+            strokeWidth: 2,
+            hover: {
+              size: 8,
+              strokeWidth: 3,
+            },
+          },
+        xaxis: {
+            categories: weeks,
+            title: {
+                text: 'Weeks'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Bugs Count'
+            },
+            min: 0
+        },
+        grid: {
+        borderColor: '#f1f1f1',
+        strokeDashArray: 1,
       },
-    },
-    legend: {
-      show: true,
-    },
-    title: {
-      text: `${sheetName} - Bugs`,
-      align: 'left',
-      style: {
-        fontWeight: 'none',
-        fontSize: '20px',
-        fontFamily: 'Arial, sans-serif',
-      },
-    },
-    series: [
-      {
-        name: `${sheetName} - Bugs`,
-        data: bugs,
-      },
-      {
-        name: `${sheetName} - Fixed Bugs`,
-        data: fixedBugs,
-      },
-    ],
-    stroke: {
-      curve: 'smooth',
-      width: 3,
-    },
-    markers: {
-      size: 6,
-      colors: ['#FF6347', '#32CD32'],
-      strokeColor: '#fff',
-      strokeWidth: 2,
-      hover: {
-        size: 8,
-        strokeWidth: 3,
-      },
-    },
-    xaxis: {
-      categories: weeks,
-      title: {
-        text: 'Weeks',
-      },
-    },
-    yaxis: {
-      title: {
-        text: 'Bugs Count',
-      },
-      min: 0,
-    },
-    grid: {
-      borderColor: '#f1f1f1',
-      strokeDashArray: 1,
-    },
-    tooltip: {
-      theme: 'dark',
-      style: {
-        fontSize: '14px',
-        color: '#FFFFFF',
-      },
-    },
-  };
-  const chart = new ApexCharts(chartContainer, options);
-  chart.render();
-}
+        tooltip: {
+            theme: 'dark',
+            style: {
+              fontSize: '14px',
+              color: '#FFFFFF',
+            },
+          },
+    };
 
-export default async function decorate(block) {
-  const bugList = block.querySelector('a[href$=".json"]');
-  if (!bugList) return;
-
-  const url = new URL(bugList.href);
-  console.log('Base URL:', url.href);
-
-  // Get all sheet names from the URL query parameters
-  const currentSheets = new URLSearchParams(window.location.search).getAll('sheet');
-  console.log('All sheets:', currentSheets);
-
-  // If no sheet is specified in the URL, return
-  if (currentSheets.length === 0) {
-    console.error('No sheet specified in the URL.');
-    return;
-  }
-
-  // Decode sheet names from the query parameters
-  const decodedSheets = currentSheets.map((sheet) => decodeURIComponent(sheet));
-  console.log('Decoded sheets:', decodedSheets);
-
-  decodedSheets.forEach((sheet) => {
-    url.searchParams.append('sheet', sheet);
-  });
-  console.log('Updated URL with sheets:', url.href);
-
-  try {
-    // Fetching the JSON data from the updated URL
-    const resp = await fetch(url.href);
-
-    if (!resp.ok) {
-      console.error('Failed to fetch data:', resp.statusText);
-      return;
-    }
-
-    // Parse the JSON response
-    const json = await resp.json();
-    console.log('Fetched data:', json);
-
-    // Loop through each sheet name and process the data
-    decodedSheets.forEach((sheetName) => {
-      if (json.data) {
-        const sheetData = json.data;
-        console.log(`Data for sheet ${sheetName}:`, sheetData);
-
-        processChartData(sheetData, sheetName);
-      } else {
-        console.error(`Sheet '${sheetName}' not found in the data.`);
-      }
-    });
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
+    // Ensure the graph container is available in the DOM before initializing the chart
+    setTimeout(() => {
+        var chart = new ApexCharts(block.querySelector(".graph-container"), options);
+        chart.render();
+    }, 1000); // SetTimeout ensures chart is rendered after DOM update
 }
