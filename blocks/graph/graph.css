@@ -11,7 +11,7 @@
 @media (min-width: 1024px) {
     .graph-wrapper {
         display: inline-block;
-        margin-right:4rem;
+        margin-right:2rem;
         min-width: 50%;
         padding: 2rem;
     }
