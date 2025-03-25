@@ -32,7 +32,7 @@ export default function decorate(block) {
     const options = {
         chart: {
             type: 'line',
-            height: 350,
+            height: 405,
             foreColor: '#FFFFFF',
         toolbar: {
           show: true,

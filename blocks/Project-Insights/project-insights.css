@@ -186,7 +186,7 @@
     }
   
     .bug-card-value {
-      font-size: 3rem;
+      font-size: 2rem;
       margin-top: 0;
     }
     
@@ -197,6 +197,10 @@
   }
   
   @media (width >= 1024px) {
+    .project-insights-wrapper{
+      display: inline-block;
+      vertical-align: top;
+    }
     .project-insights-wrapper .project-card {
       max-width: 480px;
       margin-top: 2rem;
@@ -214,15 +218,15 @@
     
     .bug-card {
       flex-direction: column;
-      padding: 1.2rem 1.5rem;
+      padding: 1rem 1rem;
     }
     
     .bug-card-title {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
     
     .bug-card-value {
-      margin-top: 8px;
+      /* margin-top: 8px; */
     }
     .bug-card .card-background-image {
       width: 5rem;
