@@ -198,7 +198,7 @@
   
   @media (width >= 1024px) {
     .project-insight-wrapper{
-      display: inline-block
+      display: inline-block;
       vertical-align: top;
     }
     .project-insight-wrapper .project-card {
