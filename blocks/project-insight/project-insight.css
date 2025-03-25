@@ -1,4 +1,4 @@
-  .project-insights-wrapper .project-card {
+  .project-insight-wrapper .project-card {
     background-color: #1a202c;
     border-radius: 1rem;
     max-width: 100%;
@@ -158,11 +158,11 @@
   }
   
   @media (width >= 768px) {
-    .project-insights-wrapper .project-insights-container {
+    .project-insight-wrapper .project-insights-container {
       align-items: center;
     }
     
-    .project-insights-wrapper .project-card {
+    .project-insight-wrapper .project-card {
       max-width: 100%;
       padding: 1.5rem;
     }
@@ -201,7 +201,7 @@
       display: inline-block;
       vertical-align: top;
     }
-    .project-insights-wrapper .project-card {
+    .project-insight-wrapper .project-card {
       max-width: 480px;
       margin-top: 2rem;
     }
