@@ -6,12 +6,21 @@ const addTranslate = (block, containerClass) => {
     projectContainer.classList.add('main-container');
 
     if (navButton && projectContainer) {
-      // Initial check
-      if (nav.getAttribute('aria-expanded') === 'true') {
+      // Get saved nav state or default to closed
+      const navExpanded = localStorage.getItem('navExpanded') === 'true';
+      // Set initial state based on saved preference
+      if (navExpanded) {
+        nav.setAttribute('aria-expanded', 'true');
         projectContainer.classList.add('main-container-shift');
+      } else {
+        nav.setAttribute('aria-expanded', 'false');
+        projectContainer.classList.remove('main-container-shift');
       }
       navButton.addEventListener('click', () => {
         projectContainer.classList.toggle('main-container-shift');
+        // Save the new state to localStorage
+        const isExpanded = projectContainer.classList.contains('main-container-shift');
+        localStorage.setItem('navExpanded', isExpanded);
       });
     }
   }, 150);
