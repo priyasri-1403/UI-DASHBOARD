@@ -4,7 +4,7 @@ const addTranslate = (block, containerClass) => {
     const projectContainer = block.closest(containerClass);
     const nav = document.getElementById('nav');
     projectContainer.classList.add('main-container-shift');
-
+ 
     window.addEventListener('resize', () => {
       if (nav.getAttribute('aria-expanded') === 'true') {
         projectContainer.classList.remove('main-container');
@@ -14,7 +14,7 @@ const addTranslate = (block, containerClass) => {
         projectContainer.classList.add('main-container');
       }
     });
-
+ 
     if (navButton && projectContainer) {
       navButton.addEventListener('click', () => {
         projectContainer.classList.toggle('main-container');
@@ -23,5 +23,5 @@ const addTranslate = (block, containerClass) => {
     }
   }, 150);
 };
-
+ 
 export default addTranslate;
