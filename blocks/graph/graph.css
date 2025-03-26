@@ -8,12 +8,10 @@
 
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     .graph-wrapper {
-        display: inline-block;
-        margin-right:2rem;
-        min-width: 50%;
-        padding: 2rem;
+        max-width: 89%;
+        width: 49%;
     }
 }
 

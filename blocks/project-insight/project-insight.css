@@ -157,6 +157,8 @@
     stroke-width: 1;
   }
   
+
+  
   @media (width >= 768px) {
     .project-insight-wrapper .project-insights-container {
       align-items: center;
@@ -197,12 +199,13 @@
   }
   
   @media (width >= 1024px) {
-    .project-insight-wrapper{
-      display: inline-block;
-      vertical-align: top;
+    .graph-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+     
     }
     .project-insight-wrapper .project-card {
-      max-width: 480px;
       margin-top: 2rem;
     }
     
