@@ -149,18 +149,6 @@ pre {
   white-space: pre;
 }
 
-/* main > div {
-  margin: 40px 16px;
-} */
-
-/* input,
-textarea,
-select,
-button {
-  font: inherit;
-} */
-
-/* links */
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
@@ -217,6 +205,10 @@ button.secondary {
   color: var(--text-color);
 }
 
+main{
+  padding: 0 9px;
+}
+
 main img {
   max-width: 100%;
   width: auto;
@@ -241,57 +233,9 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
-  main > .section > div
-   {
-    padding: 0 19px;
-  }
-}
-
-/* section metadata */
-
-/* main .section.light,
-main .section.highlight {
-  background-color: var(--light-color);
-  margin: 0;
-  padding: 40px 0;
-} */
-main .filter-container,.employee-type-container,
-.skill-container,.experience-container{
-  background: linear-gradient(to right, #1c212d, #e14a4a);
-
-  /* color: rgb(150, 162, 180); */
-  border-radius: 5px;
-  color: white;
-  width: 90%;
-}
-
-main .employee-type-container .default-content-wrapper p{
-  font-size: 17px;
-}
-
 .ag-theme-alpine .ag-ltr input[class^="ag-"][type="text"]{
   padding-left: 22px;
 
 }
 
-.main-container{
-  padding: 0 9px;
-}
 
-.main-container-shift{
-  padding: 0 9px;
-}
-
-@media ( width >= 1024px) {  
-  .main-container{
-      margin-left: 69px;
-      transition: width 0.3s ease ,margin-left 0.3s ease;
-  }
-
-  .main-container-shift {
-      margin-left: 270px;
-      transition: width 0.3s ease ,margin-left 0.3s ease;
-  }
-  
-}
