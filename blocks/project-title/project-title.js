@@ -36,6 +36,5 @@ export default function decorate(block) {
     default:
       statusLabel.textContent = 'Status Unknown';
   }
-  addTranslate(block, '.fragment-wrapper');
 }
 
