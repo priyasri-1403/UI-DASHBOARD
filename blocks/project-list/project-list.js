@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import { fetchAndStoreData, getStoredData, hasStoredData } from '../../utils/datafetch.js';
-import addTranslate from '../../utils/translate.js';
 
 export default function decorate(block) {
   const tableContainer = block.querySelector('div');
@@ -13,8 +12,6 @@ export default function decorate(block) {
   // Store the data source URL globally so other components can use it
   window._appData.dataSourceUrl = url;
   let regionList;
-
-  addTranslate(block, '.project-list-container');
 
   const title = document.querySelector('.project-list-container p');
   title.className = 'page-heading';
@@ -98,7 +95,7 @@ export default function decorate(block) {
     cursor:pointer
     }
     .clickable-row:hover{
-    background-color:#f0f0f0 !important
+    background-color:#12161f;
     }
     `;
     document.head.appendChild(style);

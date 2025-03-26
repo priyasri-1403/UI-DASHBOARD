@@ -73,6 +73,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   const button = nav.querySelector('.nav-hamburger button');
   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  localStorage.setItem('isExpanded', nav.getAttribute('aria-expanded'));
   toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
   button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
   // enable nav dropdown keyboard accessibility
@@ -177,6 +178,14 @@ function changeMenuStructure(block) {
   }
 }
 
+function setNavState(nav) {
+  const navState = localStorage.getItem('isExpanded');
+  if (!navState) {
+    nav.setAttribute('aria-expanded', 'true');
+    return;
+  }
+  nav.setAttribute('aria-expanded', navState);
+}
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -229,10 +238,6 @@ export default async function decorate(block) {
   hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
-
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
@@ -306,4 +311,6 @@ export default async function decorate(block) {
   createThemeBox(block);
 
   listenEvents(block);
+
+  setNavState(nav);
 }
