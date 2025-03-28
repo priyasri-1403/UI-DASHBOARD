@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { fetchAndStoreData, getStoredData, hasStoredData } from '../../utils/datafetch.js';
+import { fetchAndStoreData, getStoredData, hasStoredData, storeProjectData } from '../../utils/datafetch.js';
 
 export default function decorate(block) {
   const tableContainer = block.querySelector('div');
@@ -19,13 +19,36 @@ export default function decorate(block) {
   async function fetchProjectData() {
     // checking if we already have the data in storage
     const storageKey = 'projectData';
-    if (hasStoredData(storageKey)) {
-      console.log('using cached project data instead of calling the url every time');
-      const data = getStoredData(storageKey);
-      return data.data;
+    const dataExists = await hasStoredData(storageKey);
+    
+    if (dataExists) {
+      const data = await getStoredData(storageKey);
+      console.log('Retrieved data from storage:', data);
+      
+      // Handle different data structures
+      if (data.data) {
+        return data.data;
+      } else if (data.projectdata && data.projectdata.data) {
+        return data.projectdata.data;
+      }
     }
-    const jsondata = await fetchAndStoreData(url, storageKey);
-    return jsondata.data;
+    
+    // If no data in storage or unexpected structure, fetch from URL
+    try {
+      console.log('Fetching data from URL using:', url);
+      const jsondata = await fetchAndStoreData(url, storageKey);
+      console.log('Fetched data:', jsondata);
+      
+      // Handle different data structures in the response
+      if (jsondata.data) {
+        return jsondata.data;
+      } else if (jsondata.projectdata && jsondata.projectdata.data) {
+        return jsondata.projectdata.data;
+      }
+    } catch (error) {
+      console.error('Error fetching project data:', error);
+      return [];
+    }
   }
 
   tableContainer.innerHTML = `
@@ -64,8 +87,10 @@ export default function decorate(block) {
   ];
 
   fetchProjectData().then((data) => {
-    if (data.length === 0) {
-      console.warn('No data available for AG Grid.');
+    console.log('Project data for grid:', data);
+    
+    if (!data || data.length === 0) {
+      gridDiv.innerHTML = '<div class="no-data">No project data available</div>';
       return;
     }
 
@@ -86,8 +111,6 @@ export default function decorate(block) {
     };
 
     // eslint-disable-next-line no-undef
-    // agGrid.createGrid(gridDiv, gridOptions);
-    // eslint-disable-next-line no-undef
     const gridApi = agGrid.createGrid(gridDiv, gridOptions);
     const style = document.createElement('style');
     style.textContent = `
@@ -102,8 +125,15 @@ export default function decorate(block) {
     gridApi.addEventListener('rowClicked', (event) => {
       const projectName = event.data.Project;
       if (projectName) {
-        const dataUrlParam = url ? `&data-source=${encodeURIComponent(url)}` : '';
-        window.location.href = `/project/dashboard?project-name=${encodeURIComponent(projectName)}${dataUrlParam}`;
+        // Extract DR number if available
+        const drMatch = projectName.match(/DR(\d+)/);
+        const drParam = drMatch && drMatch[0] ? `&dr-number=${drMatch[0]}` : '';
+        
+        // Store the clicked project data before navigation
+        storeProjectData(projectName, event.data);
+        
+        // Navigate to dashboard with project name and DR number
+        window.location.href = `/project/dashboard?project-name=${encodeURIComponent(projectName)}${drParam}`;
       }
     });
 
