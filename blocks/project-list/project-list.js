@@ -25,7 +25,7 @@ export default function decorate(block) {
       return data.data;
     }
     const jsondata = await fetchAndStoreData(url, storageKey);
-    return jsondata.data;
+    return jsondata?.projectdata?.data;
   }
 
   tableContainer.innerHTML = `
