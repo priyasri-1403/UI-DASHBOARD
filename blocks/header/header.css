@@ -13,6 +13,9 @@
   margin-right: 23px;
   filter: var(--svg-icon-color);
 }
+.user-wrapper > img:hover{
+  cursor: pointer;
+}
 
 .user-wrapper span{
   font-size: var(--text-font-size);
@@ -88,7 +91,7 @@
     height: 100%;
     box-sizing: border-box;
     align-items: center;
-    border-right: 0.4px solid rgb(50 49 52);
+    border-right: 0.4px solid var(--border-color);
     width: 251px;
    
     /* justify-content: space-around; */

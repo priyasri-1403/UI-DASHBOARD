@@ -109,12 +109,12 @@ function listenEvents(block) {
     block.querySelector('.theme-wrap').classList.toggle('hide');
   });
 
-  block.querySelector('.light-btn')?.addEventListener('click', () => {
-    document.body.classList.add('light-theme');
+  block.querySelector('.dark-btn')?.addEventListener('click', () => {
+    document.body.classList.add('dark-theme');
   });
 
-  block.querySelector('.dark-btn')?.addEventListener('click', () => {
-    document.body.classList.remove('light-theme');
+  block.querySelector('.light-btn')?.addEventListener('click', () => {
+    document.body.classList.remove('dark-theme');
   });
 }
 
