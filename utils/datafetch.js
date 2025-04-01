@@ -278,8 +278,9 @@ export const fetchProjectData = async (url, projectName, storageKey = 'projectDa
   const drNumber = ProjectHelpers.extractDRNumber(projectName);
   
   // If we have a DR number, we can try to fetch project-specific data
-  if (drNumber) {
-    const apiUrl = `https://main--ui-dashboard--priyasri-1403.aem.page/weeklyprojectstatusupdates.json?${drNumber}`;
+  if (drNumber && window._appData?.dataSourceUrl?.href) {
+    const baseUrl = window._appData.dataSourceUrl.href;
+    const apiUrl = `${baseUrl}?${drNumber}`;
     try {
       const projectData = await fetchAndStoreData(apiUrl, `${drNumber}_data`);
       if (projectData) {
@@ -290,7 +291,7 @@ export const fetchProjectData = async (url, projectName, storageKey = 'projectDa
     }
   }
   
-  // Since we're only using IndexedDB, we won't fetch from URL if data isn't found
+  // Return empty data if nothing found
   return { data: null };
 };
 
