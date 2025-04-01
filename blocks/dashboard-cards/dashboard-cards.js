@@ -50,61 +50,15 @@ export default async function decorate(block) {
     // Loading indicator while we get data
     block.innerHTML = '<div class="dashboard-cards-container loading">Loading project data...</div>';
     
-    // Get project data from multiple sources
     if (projectName) {
-        try {
-            // Try to get project data from multiple sources
-            
-            // 1. First try to get project-specific data
             const storedProject = await getProjectData(projectName);
             if (storedProject && storedProject.data) {
                 console.log('Found project data in project-specific storage');
                 projectData = storedProject.data;
             } 
-            // 2. If not found, check projectData general storage
-            else {
-                const projectsData = await getStoredData('projectData');
-                if (projectsData && projectsData.projectdata && Array.isArray(projectsData.projectdata.data)) {
-                    console.log('Looking for project in general projectData storage');
-                    // Find project by name
-                    const project = projectsData.projectdata.data.find(p => p.Project === projectName);
-                    if (project) {
-                        console.log('Found project in general projectData storage');
-                        projectData = project;
-                    }
-                }
-            }
-            
-            // 3. If still not found and we have a DR number, try that
-            if (!projectData && drNumber) {
-                console.log('Trying to find project data using DR number');
-                const drData = await getStoredData(`${drNumber}_data`);
-                if (drData && drData.projectdata && Array.isArray(drData.projectdata.data)) {
-                    // Find project by DR number in name
-                    const project = drData.projectdata.data.find(p => p.Project.includes(drNumber));
-                    if (project) {
-                        console.log('Found project using DR number');
-                        projectData = project;
-                    }
-                }
-            }
-            
-            // 4. If still not found, try fetching (this will use IndexedDB internally if available)
-            if (!projectData) {
-                console.log('No project data found in storage, trying fetchProjectData');
-                const result = await fetchProjectData(null, projectName);
-                if (result && result.data) {
-                    projectData = result.data;
-                }
-            }
-            
-            console.log('Final project data:', projectData);
-        } catch (error) {
-            console.error('Error fetching project data:', error);
-        }
+        console.log('Final project data:', projectData);
     }
     
-    // Prepare card data from project data or use default
     const cardData = projectData ? [
         {
             title: 'Region',

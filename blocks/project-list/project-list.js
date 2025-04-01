@@ -92,6 +92,21 @@ export default function decorate(block) {
       return;
     }
 
+    // Simple function to extract DR number from project name
+    const getDRNumber = (projectName) => {
+      const match = projectName.match(/DR\d+/);
+      return match ? match[0] : '';
+    };
+
+    // Process data to clean project names by removing DR numbers
+    const processedData = data.map(row => {
+      if (row.Project) {
+        const cleanName = row.Project.replace(/DR\d+/g, '').replace(/\|+/g, ' ').replace(/\s+/g, ' ').trim();
+        return { ...row, Project: cleanName };
+      }
+      return row;
+    });
+
     const columnDefs = Object.keys(data[0])
       .filter((key) => !nonHeaders.includes(key))
       .map((key) => ({
@@ -103,7 +118,7 @@ export default function decorate(block) {
 
     const gridOptions = {
       columnDefs,
-      rowData: data,
+      rowData: processedData,
       rowSelection: 'single',
       getRowClass: () => 'clickable-row',
     };
@@ -123,9 +138,10 @@ export default function decorate(block) {
     gridApi.addEventListener('rowClicked', (event) => {
       const projectName = event.data.Project;
       if (projectName) {
-        // Extract DR number if available
-        const drMatch = projectName.match(/DR(\d+)/);
-        const drParam = drMatch && drMatch[0] ? `&dr-number=${drMatch[0]}` : '';
+        // Find the original data row to extract DR number
+        const originalRow = data.find(d => d.Project.includes(projectName));
+        const drNumber = originalRow ? getDRNumber(originalRow.Project) : '';
+        const drParam = drNumber ? `&dr-number=${drNumber}` : '';
         
         // Store the clicked project data before navigation
         storeProjectData(projectName, event.data);
@@ -136,7 +152,7 @@ export default function decorate(block) {
     });
 
     searchBox.addEventListener('input', () => gridApi.setGridOption('quickFilterText', document.getElementById('searchBox').value));
-    regionList = [...new Set(data.map((row) => row['Region (Project)']))];
+    regionList = [...new Set(processedData.map((row) => row['Region (Project)']))];
     regionList.forEach((region) => {
       const option = document.createElement('option');
       option.value = region;
@@ -146,7 +162,7 @@ export default function decorate(block) {
 
     regionDropdown.addEventListener('change', () => {
       const selectedRegion = regionDropdown.value;
-      gridApi.setGridOption('rowData', selectedRegion ? data.filter((row) => row['Region (Project)'] === selectedRegion) : data);
+      gridApi.setGridOption('rowData', selectedRegion ? processedData.filter((row) => row['Region (Project)'] === selectedRegion) : processedData);
     });
 
     const filterIcon = block.querySelector('.filter-icon');

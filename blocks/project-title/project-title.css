@@ -1,6 +1,8 @@
 .project-title-container {
   margin: 2rem 0;
-  
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .project-header-wrapper {
@@ -9,6 +11,10 @@
   align-items: flex-start;
   gap: 1.5rem;
   position: relative;
+  justify-content: space-between;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .project-info {
@@ -16,6 +22,10 @@
   flex-direction: column;
   padding-left: 1rem;
   border-left: 0.4rem solid #00b3ff;
+  flex: 1;
+  max-width: calc(100% - 20px);
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .project-title {
@@ -24,142 +34,146 @@
   margin: 0.25rem 0;
   color: #00b3ff;
   font-family: var(--body-font-family);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .project-description {
   font-size: 1rem;
   color: #bab4b4;
-  margin-top: 0.25rem;
-  margin-bottom: 0.75rem;
+  margin: 0.25rem 0 0.75rem;
   font-weight: 400;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   max-width: 100%;
 }
 
-.project-status-wrapper {
+.status-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 250px;
+  box-sizing: border-box;
+}
+
+.status-column {
   display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
-  border-radius: 5rem;
-}
-
-.project-status-wrapper.status-red {
-  background-color: rgba(255, 77, 79, 0.1);
-}
-
-.project-status-wrapper.status-amber {
-  background-color: rgba(250, 173, 20, 0.1);
-}
-
-.project-status-wrapper.status-green {
-  background-color: rgba(82, 196, 26, 0.1);
-}
-
-.status-indicator {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  margin-right: 12px;
+  gap: 10px;
+  padding: 12px 16px;
+  background-color: rgba(20, 20, 30, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   position: relative;
-}
-
-.status-red {
-  background-color: #ff4d4f;
-  border: 2px solid #ff1f1f;
-}
-
-.status-amber {
-  background-color: #faad14;
-  border: 2px solid #d48806;
-}
-
-.status-green {
-  background-color: #52c41a;
-  border: 2px solid #389e0d;
-}
-
-.status-label {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.project-status-wrapper.status-red .status-label {
-  color: #ff1529;
-}
-
-.project-status-wrapper.status-amber .status-label {
-  color: #ff9e0c;
-}
-
-.project-status-wrapper.status-green .status-label {
-  color: #d7ffc8;
-}
-
-.status-indicator::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
   width: 100%;
-  height: 100%;
+  min-width: 230px;
+  box-sizing: border-box;
+  border-left: 3px solid #505050;
+}
+
+.status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: inherit;
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 0.6;
-  z-index: -1;
-  animation: ripple 2s infinite ease-out;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: relative;
+  flex-shrink: 0;
 }
 
-@keyframes ripple {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.5);
-    opacity: 0.3;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0;
-  }
+.status-icon::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #505050;
+  animation: pulse 2s infinite;
 }
 
-@media (min-width: 768px) {
+.status-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.status-heading {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #bab4b4;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 4px;
+}
+
+.current-status-label, .overall-status-label {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  transition: color 0.2s ease;
+}
+
+.project-status-wrapper.status-red .status-column { border-left-color: #ff1529; }
+.project-status-wrapper.status-amber .status-column { border-left-color: #ff9e0c; }
+.project-status-wrapper.status-green .status-column { border-left-color: #00c875; }
+
+.project-status-wrapper.status-red .status-icon::before { background-color: #ff1529; }
+.project-status-wrapper.status-amber .status-icon::before { background-color: #ff9e0c; }
+.project-status-wrapper.status-green .status-icon::before { background-color: #00c875; }
+
+.project-status-wrapper.status-red .current-status-label,
+.project-status-wrapper.status-red .overall-status-label { color: #ff4563; }
+.project-status-wrapper.status-amber .current-status-label,
+.project-status-wrapper.status-amber .overall-status-label { color: #ffb347; }
+.project-status-wrapper.status-green .current-status-label,
+.project-status-wrapper.status-green .overall-status-label { color: #d7ffc8; }
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+@media (width>= 768px) {
   .project-header-wrapper {
     flex-direction: row;
-    align-items: center;
-    gap: 2rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
-  
-  .project-title {
-    font-size: 2rem;
+  .project-info {
+    flex: 1;
+    min-width: 0;
+    max-width: calc(100% - 300px);
   }
-  
-  .project-description {
-    font-size: 1.1rem;
-    max-width: 500px;
-  }
-  
-  .project-status-wrapper {
+  .status-columns {
+    flex-direction: column;
+    gap: 10px;
     margin-top: 0;
+    width: auto;
+    max-width: 260px;
+    flex-shrink: 0;
   }
+  .status-column { min-width: 260px; }
 }
 
-@media (min-width: 1024px) {
-  .project-header-wrapper {
-    gap: 3rem;
-    padding: 0 2.2rem;
-  }
-  
-  .project-title {
-    font-size: 1.5rem;
-  }
-  
-  .project-description {
-    font-size: 1rem;
-  }
-  
+@media (width>= 1024px) {
+  .project-header-wrapper { padding: 0 2.2rem; }
+  .project-title { font-size: 1.5rem; }
   .project-info {
     padding-left: 2rem;
+    flex: 1;
+    max-width: calc(100% - 320px);
+  }
+  .status-columns { max-width: 300px; }
+  .status-column {
+    min-width: 270px;
+    padding: 14px 18px;
   }
 }

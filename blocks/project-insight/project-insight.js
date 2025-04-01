@@ -56,7 +56,7 @@ export default function decorate(block) {
                 <div class="section-label">Bugs</div>
                 <div class="bugs-cards">
                     <div class="bug-card total-bugs">
-                        <div class="bug-card-title">Total Bugs</div>
+                        <div class="bug-card-title">Overall Bugs</div>
                         <div class="bug-card-value">${bugs.total}</div>
                         <div class="card-background-image">
                             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
