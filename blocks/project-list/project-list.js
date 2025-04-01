@@ -9,7 +9,6 @@ export default function decorate(block) {
     window._appData = {};
   }
 
-  // Store the data source URL globally so other components can use it
   window._appData.dataSourceUrl = url;
   let regionList;
 
@@ -33,7 +32,6 @@ export default function decorate(block) {
       }
     }
     
-    // If no data in storage or unexpected structure, fetch from URL
     try {
       console.log('Fetching data from URL using:', url);
       const jsondata = await fetchAndStoreData(url, storageKey);

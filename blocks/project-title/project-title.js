@@ -1,5 +1,3 @@
-import addTranslate from '../../utils/translate.js';
-
 export default function decorate(block) {
   const projectData = {
     name: 'Panasonic',

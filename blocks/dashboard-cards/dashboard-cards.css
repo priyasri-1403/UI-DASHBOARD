@@ -6,6 +6,7 @@
 
 .dashboard-cards-wrapper .dashboard-cards-container {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   width: 100%;
   flex-wrap: wrap;
@@ -14,11 +15,9 @@
 
 .dashboard-cards-wrapper .dashboard-card {
   border-radius: 10px;
-  padding: 8px 26px;
+  padding: 0.8rem 1.5rem;
   display: flex;
   flex-direction: column;
-  min-width: 220px;
-  max-width: 250px;
   flex: 1;
   position: relative;
   overflow: hidden;
@@ -42,19 +41,21 @@
 }
 
 .dashboard-cards-wrapper .dashboard-card .card-title {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
   position: relative;
   z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-cards-wrapper .dashboard-card .card-value {
-  font-size: 36px;
+  font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 14px;
   position: relative;
   z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-cards-wrapper .dashboard-card .card-progress {
@@ -101,7 +102,8 @@
 }
 
 .dashboard-cards-wrapper .dashboard-card .card-footer .card-trend {
-  font-size: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .dashboard-cards-wrapper .dashboard-card .card-background-image {
@@ -109,8 +111,8 @@
   right: 2px;
   bottom: 10px;
   opacity: 0.1;
-  width: 150px;
-  height: 150px;
+  width: 80px;
+  height: 80px;
   z-index: 1;
   overflow: hidden;
 }
@@ -128,9 +130,33 @@
   bottom: 1rem;
 }
 
-@media (max-width: 768px) {
+@media (width >= 1024px) {
+  .dashboard-cards-wrapper{
+    padding: 0 2.2rem;
+  }
+  .dashboard-cards-wrapper .dashboard-cards-container {
+    flex-direction: row;
+  }
+  
+  .dashboard-cards-wrapper .dashboard-card .card-title {
+    font-size: 1rem;
+  }
+  
+  .dashboard-cards-wrapper .dashboard-card .card-value {
+    font-size: 1.2rem;
+  }
+  
+  .dashboard-cards-wrapper .dashboard-card .card-footer .card-trend {
+    font-size: 1rem;
+  }
+}
+
+@media (width >= 768px) {
+  .dashboard-cards-wrapper .dashboard-cards-container {
+    flex-direction: row;
+  }
+  
   .dashboard-cards-wrapper .dashboard-card {
-    width: 100%;
-    max-width: 320px;
+    max-width: 100%;
   }
 }
