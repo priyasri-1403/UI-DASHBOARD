@@ -58,14 +58,14 @@ export default async function decorate(block) {
     }
     
     // Extract the weeks, bugs, and fixed bugs data
-    const weeks = bugData.map(item => item.weeks);
-    const projectBugs = bugData.map(item => parseInt(item.bugs));
-    const projectFixedBugs = bugData.map(item => parseInt(item["fixed bugs"]));
+    const weeks = bugData.map(item => item.Sprint);
+    const projectBugs = bugData.map(item => parseInt(item.Bugs));
+    const projectFixedBugs = bugData.map(item => parseInt(item["Fixed bugs"]));
 
     // Create the chart options
     const options = {
         chart: {
-            type: 'line',
+            type: 'bar', // Change chart type to 'bar' for a column chart
             height: 405,
             foreColor: '#FFFFFF',
             toolbar: {
@@ -101,24 +101,17 @@ export default async function decorate(block) {
                 data: projectFixedBugs
             }
         ],
-        stroke: {
-            curve: 'smooth',
-            width: 3,
-        },
-        markers: {
-            size: 6,
-            colors: ['#FF6347', '#32CD32'],
-            strokeColor: '#fff',
-            strokeWidth: 2,
-            hover: {
-                size: 8,
-                strokeWidth: 3,
+        plotOptions: {
+            bar: {
+                horizontal: false, // Set bars to be vertical (default)
+                columnWidth: '45%', // Adjust the width of the bars
+                endingShape: 'flat', // Keep flat top for columns
             },
         },
         xaxis: {
             categories: weeks,
             title: {
-                text: 'Weeks'
+                text: 'Sprint'
             }
         },
         yaxis: {
