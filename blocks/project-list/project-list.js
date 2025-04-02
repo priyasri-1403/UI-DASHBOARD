@@ -76,10 +76,12 @@ export default function decorate(block) {
   const regionDropdown = block.querySelector('#region-dropdown');
 
   const nonHeaders = [
+    'Skill/Framework',
     'Project Status Notes (Project)',
     'Status As on 3rd Mar 2025',
     'Status As on 10th Mar 2025',
     'Status As on 17th Mar 2025',
+    'Total',
   ];
 
   fetchProjectData().then((data) => {
@@ -107,17 +109,29 @@ export default function decorate(block) {
 
     const columnDefs = Object.keys(processedData[0] || {}) 
       .filter((key) => !nonHeaders.includes(key))
-      .map((key) => ({
-        headerName: key,
+      .map((key) => {
+        const modifiedKey = key.includes(" (Project)")
+         ? key.replace(" (Project)",'') 
+         : key.includes("/ Team members")
+          ? key.replace("/ Team members",'')
+           : key;
+
+        return {
+        headerName: modifiedKey,
         field: key,
         sortable: true,
         filter: true,
-        ...(key === 'Project' && {
-          tooltipValueGetter: (params) => params.data.Project,
-          tooltipComponentParams: { color: '#ececec' },
-        }),
-      }));
+        }
+      });
 
+      const regionIndex = columnDefs.findIndex((col) => col.field === 'Region (Project)');
+      const managerIndex = columnDefs.findIndex((col) => col.field === 'Project manager (Project)');
+      const [regionColumn] = columnDefs.splice(regionIndex, 1);
+      columnDefs.splice(managerIndex, 0 , regionColumn);
+      console.log(columnDefs);
+      
+      data.forEach((row) => row.Project = row.Project.replace(/\|?\s*DR\d+/g,'').trim());
+    console.log(data)
     const gridOptions = {
       columnDefs,
       rowData: processedData,
@@ -135,8 +149,8 @@ export default function decorate(block) {
     .clickable-row {
       cursor: pointer;
     }
-    .clickable-row:hover {
-      background-color: #12161f;
+    .clickable-row:hover{
+    background-color:var(--row-hover-color);
     }
     `;
     document.head.appendChild(style);
