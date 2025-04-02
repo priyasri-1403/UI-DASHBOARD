@@ -57,8 +57,6 @@ export default function decorate(block) {
              <input class = "search-input" type="text" id="searchBox" placeholder="Search" />
                  </div>
              <div class = "filter-box">
-               
-
                <div class = 'column-filter-box'>
                   <img class = "filter-icon" src="../../icons/filter-list.svg"/>
                <div id='column-filters' class = "toggle-column hide">
@@ -101,15 +99,14 @@ export default function decorate(block) {
     // Process data to clean project names by removing DR numbers and store original name
     const processedData = data.map(row => {
       if (row.Project) {
-        const originalProjectName = row.Project; // Store original name
         const cleanName = row.Project.replace(/DR\d+/g, '').replace(/\|+/g, ' ').replace(/\s+/g, ' ').trim();
-        return { ...row, Project: cleanName }; // Add hidden field
+        return { ...row, Project: cleanName }; 
       }
       return row;
     });
 
-    const columnDefs = Object.keys(processedData[0] || {}) // Use processedData keys, handle empty data
-      .filter((key) => !nonHeaders.includes(key)) // Exclude hidden field
+    const columnDefs = Object.keys(processedData[0] || {}) 
+      .filter((key) => !nonHeaders.includes(key))
       .map((key) => ({
         headerName: key,
         field: key,
@@ -127,8 +124,8 @@ export default function decorate(block) {
       rowSelection: 'single',
       getRowClass: () => 'clickable-row',
       // Enable tooltips
-      tooltipShowDelay: 0, // Show immediately on hover
-      tooltipHideDelay: 2000, // Hide after 2 seconds
+      tooltipShowDelay: 0,
+      tooltipHideDelay: 2000,
     };
 
     // eslint-disable-next-line no-undef
@@ -139,7 +136,7 @@ export default function decorate(block) {
       cursor: pointer;
     }
     .clickable-row:hover {
-      background-color: #12161f; /* Ensure this has enough contrast */
+      background-color: #12161f;
     }
     `;
     document.head.appendChild(style);
