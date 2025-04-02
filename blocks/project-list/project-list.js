@@ -98,22 +98,27 @@ export default function decorate(block) {
       return match ? match[0] : '';
     };
 
-    // Process data to clean project names by removing DR numbers
+    // Process data to clean project names by removing DR numbers and store original name
     const processedData = data.map(row => {
       if (row.Project) {
+        const originalProjectName = row.Project; // Store original name
         const cleanName = row.Project.replace(/DR\d+/g, '').replace(/\|+/g, ' ').replace(/\s+/g, ' ').trim();
-        return { ...row, Project: cleanName };
+        return { ...row, Project: cleanName }; // Add hidden field
       }
       return row;
     });
 
-    const columnDefs = Object.keys(data[0])
-      .filter((key) => !nonHeaders.includes(key))
+    const columnDefs = Object.keys(processedData[0] || {}) // Use processedData keys, handle empty data
+      .filter((key) => !nonHeaders.includes(key)) // Exclude hidden field
       .map((key) => ({
         headerName: key,
         field: key,
         sortable: true,
         filter: true,
+        ...(key === 'Project' && {
+          tooltipValueGetter: (params) => params.data.Project,
+          tooltipComponentParams: { color: '#ececec' },
+        }),
       }));
 
     const gridOptions = {
@@ -121,17 +126,20 @@ export default function decorate(block) {
       rowData: processedData,
       rowSelection: 'single',
       getRowClass: () => 'clickable-row',
+      // Enable tooltips
+      tooltipShowDelay: 0, // Show immediately on hover
+      tooltipHideDelay: 2000, // Hide after 2 seconds
     };
 
     // eslint-disable-next-line no-undef
     const gridApi = agGrid.createGrid(gridDiv, gridOptions);
     const style = document.createElement('style');
     style.textContent = `
-    .clickable-row{
-    cursor:pointer
+    .clickable-row {
+      cursor: pointer;
     }
-    .clickable-row:hover{
-    background-color:#12161f;
+    .clickable-row:hover {
+      background-color: #12161f; /* Ensure this has enough contrast */
     }
     `;
     document.head.appendChild(style);
