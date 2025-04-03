@@ -121,6 +121,7 @@ export default function decorate(block) {
         field: key,
         sortable: true,
         filter: true,
+        tooltipValueGetter: (params) => params.value,
         }
       });
 
@@ -137,7 +138,6 @@ export default function decorate(block) {
       rowData: processedData,
       rowSelection: 'single',
       getRowClass: () => 'clickable-row',
-      // Enable tooltips
       tooltipShowDelay: 0,
       tooltipHideDelay: 2000,
     };
@@ -151,6 +151,15 @@ export default function decorate(block) {
     }
     .clickable-row:hover{
     background-color:var(--row-hover-color);
+    }
+    .ag-tooltip-custom, .ag-tooltip { /* Target default/custom tooltip classes */
+      background-color: #333 !important;
+      color: #fff !important;
+      border: 1px solid #555 !important;
+      padding: 5px 10px !important;
+      border-radius: 4px !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+      z-index: 9999 !important; /* Ensure tooltip is above other elements */
     }
     `;
     document.head.appendChild(style);
