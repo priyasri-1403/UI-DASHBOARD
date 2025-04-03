@@ -19,11 +19,11 @@ export default function decorate(block) {
     // checking if we already have the data in storage
     const storageKey = 'projectData';
     const dataExists = await hasStoredData(storageKey);
-    
+
     if (dataExists) {
       const data = await getStoredData(storageKey);
       console.log('Retrieved data from storage:', data);
-      
+
       // Handle different data structures
       if (data.data) {
         return data.data;
@@ -31,12 +31,12 @@ export default function decorate(block) {
         return data.projectdata.data;
       }
     }
-    
+
     try {
       console.log('Fetching data from URL using:', url);
       const jsondata = await fetchAndStoreData(url, storageKey);
       console.log('Fetched data:', jsondata);
-      
+
       // Handle different data structures in the response
       if (jsondata.data) {
         return jsondata.data;
@@ -84,26 +84,26 @@ export default function decorate(block) {
     'Total',
   ];
 
-  function statuscellRenderer(params){
+  function statuscellRenderer(params) {
     const statusColor = {
-      Green:"green",
-      Red:"red",
-      Yellow:"yellow",
-      Ember:"orange",
+      Green: "green",
+      Red: "red",
+      Yellow: "yellow",
+      Ember: "orange",
 
     }
     const color = statusColor[params.value];
     const indicator = document.createElement("div");
-    indicator.className="status-indicator";
+    indicator.className = "status-indicator";
     indicator.style.backgroundColor = color;
     return indicator;
 
   }
 
- 
+
   fetchProjectData().then((data) => {
     console.log('Project data for grid:', data);
-    
+
     if (!data || data.length === 0) {
       gridDiv.innerHTML = '<div class="no-data">No project data available</div>';
       return;
@@ -119,54 +119,55 @@ export default function decorate(block) {
     const processedData = data.map(row => {
       if (row.Project) {
         const cleanName = row.Project.replace(/DR\d+/g, '').replace(/\|+/g, ' ').replace(/\s+/g, ' ').trim();
-        return { ...row, Project: cleanName }; 
+        return { ...row, Project: cleanName };
       }
       return row;
     });
 
-    const columnDefs = Object.keys(processedData[0] || {}) 
+    const columnDefs = Object.keys(processedData[0] || {})
       .filter((key) => !nonHeaders.includes(key))
       .map((key) => {
         const modifiedKey = key.includes(" (Project)")
-         ? key.replace(" (Project)",'') 
-         : key.includes("/ Team members")
-          ? key.replace("/ Team members",'')
-           : key;
+          ? key.replace(" (Project)", '')
+          : key.includes("/ Team members")
+            ? key.replace("/ Team members", '')
+            : key;
 
         return {
-        headerName: modifiedKey,
-        field: key,
-        sortable: true,
-        filter: true,
-        tooltipValueGetter: (params) => params.value,
+          headerName: modifiedKey,
+          field: key,
+          sortable: true,
+          filter: true,
+          cellRenderer: key === 'Current Status' ? statuscellRenderer : undefined,
+          tooltipValueGetter: key === 'Project' ? (params) => params.value : undefined,
         }
       });
 
 
-    
 
 
-      const regionIndex = columnDefs.findIndex((col) => col.field === 'Region (Project)');
-      const managerIndex = columnDefs.findIndex((col) => col.field === 'Project manager (Project)');
-      const [regionColumn] = columnDefs.splice(regionIndex, 1);
-      columnDefs.splice(managerIndex, 0 , regionColumn);
-      console.log(columnDefs);
-      
-      const originalData = JSON.parse(JSON.stringify(data));
-      
-      // Remove DR numbers from display data only
-      data.forEach((row) => row.Project = row.Project.replace(/\|?\s*DR\d+/g,'').trim());
-      console.log(data)
+
+    const regionIndex = columnDefs.findIndex((col) => col.field === 'Region (Project)');
+    const managerIndex = columnDefs.findIndex((col) => col.field === 'Project manager (Project)');
+    const [regionColumn] = columnDefs.splice(regionIndex, 1);
+    columnDefs.splice(managerIndex, 0, regionColumn);
+    console.log(columnDefs);
+
+    const originalData = JSON.parse(JSON.stringify(data));
+
+    // Remove DR numbers from display data only
+    data.forEach((row) => row.Project = row.Project.replace(/\|?\s*DR\d+/g, '').trim());
+    console.log(data)
     const gridOptions = {
       columnDefs,
       rowData: processedData,
       rowSelection: 'single',
       pagination: true,
-      paginationPageSizeSelector: [10,20,30],
+      paginationPageSizeSelector: [10, 20, 30],
       paginationPageSize: 10,
       getRowClass: () => 'clickable-row',
       tooltipShowDelay: 0,
-      tooltipHideDelay:5000,
+      tooltipHideDelay: 5000,
     };
 
     // eslint-disable-next-line no-undef
@@ -197,10 +198,10 @@ export default function decorate(block) {
         const originalRow = originalData.find(d => d.Project.includes(projectName));
         const drNumber = originalRow ? getDRNumber(originalRow.Project) : '';
         const drParam = drNumber ? `&dr-number=${drNumber}` : '';
-        
+
         // Store the clicked project data before navigation
         storeProjectData(projectName, event.data);
-        
+
         // Navigate to dashboard with project name and DR number
         window.location.href = `/project/dashboard?project-name=${encodeURIComponent(projectName)}${drParam}`;
       }
@@ -224,36 +225,40 @@ export default function decorate(block) {
     const columnCheckBox = document.getElementById('column-filters');
     const columnFilterBox = block.querySelector('.column-filter-box');
 
-    filterIcon.addEventListener('click', () => columnCheckBox.classList.toggle('hide'));
 
-    document.addEventListener('click', (e) => {
-      if (!columnCheckBox.classList.contains('hide') && !columnFilterBox.contains(e.target)) {
-        columnCheckBox.classList.add('hide');
-      }
-    });
+      // Selector('.column-filter-box');
 
-    columnDefs.forEach((col) => {
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.className = 'checkbox';
-      checkbox.checked = !col.hide;
-      checkbox.dataset.field = col.field;
+      filterIcon.addEventListener('click', () => columnCheckBox.classList.toggle('hide'));
 
-      const label = document.createElement('label');
-      label.textContent = col.headerName;
+      document.addEventListener('click', (e) => {
+        if (!columnCheckBox.classList.contains('hide') && !columnFilterBox.contains(e.target)) {
+          columnCheckBox.classList.add('hide');
+        }
+      });
 
-      const container = document.createElement('div');
-      container.appendChild(label);
-      container.appendChild(checkbox);
-      container.className = 'project-filter-container-item';
+      columnDefs.forEach((col) => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'checkbox';
+        checkbox.checked = !col.hide;
+        checkbox.dataset.field = col.field;
 
-      columnCheckBox.appendChild(container);
-      checkbox.addEventListener('change', () => {
-        gridApi.applyColumnState({
-          state: [{ colId: col.field, hide: !checkbox.checked }],
-          applyOrder: true,
+        const label = document.createElement('label');
+        label.textContent = col.headerName;
+
+        const container = document.createElement('div');
+        container.appendChild(label);
+        container.appendChild(checkbox);
+        container.className = 'project-filter-container-item';
+
+        columnCheckBox.appendChild(container);
+        checkbox.addEventListener('change', () => {
+          gridApi.applyColumnState({
+            state: [{ colId: col.field, hide: !checkbox.checked }],
+            applyOrder: true,
+          });
         });
       });
     });
-  });
-}
+  };
+

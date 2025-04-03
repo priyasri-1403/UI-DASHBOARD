@@ -114,7 +114,8 @@
     background-color: transparent;
 }
 .ag-header-container{
-    background-color: var(--table-body);
+    /* background-color: var(--table-body); */
+    background-color: var(--table-columndef-color);
     width: 1688px !important;
 }
 .ag-cell{
@@ -196,6 +197,15 @@ left:1762px !important;
 #column-filters label input{
     height: 20px;
     width: auto;
+}
+.ag-body-horizontal-scroll-viewport{
+   scrollbar-width: none;
+}
+.ag-body-vertical-scroll-viewport{
+   scrollbar-width: none;
+}
+.ag-paging-panel{
+    border-top: none;
 }
 
 .filter-icon{

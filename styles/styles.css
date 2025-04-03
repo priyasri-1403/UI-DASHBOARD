@@ -18,7 +18,10 @@
   --spectrum-charcoal-100: #555;
   --spectrum-lavender-200: #dae1f3;
   --spectrum-mist-100: #f0f3fb;
+  --spectrum-violet-50:#f2fafe;
   --spectrum-violet-100: #323134;
+  --spectrum-violet-200:#141d33;
+
   
 
 
@@ -36,6 +39,7 @@
   --table-header:var(--spectrum-lavender-200);
   --table-body:var(--spectrum-white-100);
   --table-text-color:var(--spectrum-black-100);
+  --table-columndef-color:var(--spectrum-violet-50);
   --table-footer:var(--spectrum-white-100);
   --side-menu-color:var(--spectrum-white-100);
   --list-active-color:var(--spectrum-mist-100);
@@ -105,6 +109,7 @@ body.appear {
 
   /* --dark-color: #505050; */
   --table-header:var(--spectrum-blue-400);
+  --table-columndef-color:var(--spectrum-violet-200);
   --table-footer:var(--spectrum-blue-200);
   --table-body:var(--spectrum-blue-200);
   --table-text-color:var(--spectrum-gray-200);
