@@ -137,8 +137,18 @@ export default async function decorate(block) {
         yaxis: { title: { text: 'Bugs Count' }, min: 0 },
         grid: { borderColor: '#f1f1f1', strokeDashArray: 1 },
         tooltip: { theme: 'dark', style: { fontSize: '14px', color: '#FFFFFF' } },
-    };
 
+        dataLabels: {
+            enabled: true,  
+            style: {
+                fontSize: '6px', 
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: 'bold',
+                colors: ['#FFFFFF'] 
+            },
+        }
+    };
+    
     function insertFilters() {
         const toolbar = graphContainer.querySelector('.apexcharts-toolbar');
         if (toolbar && !toolbar.querySelector('.custom-toolbar')) {
