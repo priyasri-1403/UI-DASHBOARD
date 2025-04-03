@@ -65,11 +65,30 @@ export default function decorate(block) {
     'Total',
   ];
 
+  function statuscellRenderer(params){
+    const statusColor = {
+      Green:"green",
+      Red:"red",
+      Yellow:"yellow",
+      Ember:"orange",
+
+    }
+    const color = statusColor[params.value];
+    const indicator = document.createElement("div");
+    indicator.className="status-indicator";
+    indicator.style.backgroundColor = color;
+    return indicator;
+
+  }
+
+ 
   fetchProjectData().then((data) => {
     if (data.length === 0) {
       console.warn('No data available for AG Grid.');
       return;
     }
+
+   
 
     const columnDefs = Object.keys(data[0])
       .filter((key) => !nonHeaders.includes(key))
@@ -85,22 +104,33 @@ export default function decorate(block) {
         field: key,
         sortable: true,
         filter: true,
+        cellRenderer: key === 'Current Status' ? statuscellRenderer : undefined,
+        tooltipField: key === "Project" ? key : undefined,
         }
       });
+
+
+    
+
 
       const regionIndex = columnDefs.findIndex((col) => col.field === 'Region (Project)');
       const managerIndex = columnDefs.findIndex((col) => col.field === 'Project manager (Project)');
       const [regionColumn] = columnDefs.splice(regionIndex, 1);
-      columnDefs.splice(managerIndex, 0 , regionColumn);
+      columnDefs.splice(managerIndex, 0, regionColumn);
       console.log(columnDefs);
       
       data.forEach((row) => row.Project = row.Project.replace(/\|?\s*DR\d+/g,'').trim());
-    console.log(data)
+    
     const gridOptions = {
       columnDefs,
       rowData: data,
       rowSelection: 'single',
+      pagination: true,
+      paginationPageSizeSelector: [10,20,30],
+      paginationPageSize: 10,
       getRowClass: () => 'clickable-row',
+      tooltipShowDelay: 0,
+      tooltipHideDelay:5000,
     };
 
     // eslint-disable-next-line no-undef
@@ -114,6 +144,15 @@ export default function decorate(block) {
     }
     .clickable-row:hover{
     background-color:var(--row-hover-color);
+    }
+    .ag-tooltip-custom, .ag-tooltip { /* Target default/custom tooltip classes */
+      background-color: var(--toolpoint-color) !important;
+      color: var(--toolpoint-txt-color) !important;
+      border: 1px solid #555 !important;
+      padding: 5px 10px !important;
+      border-radius: 4px !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+      z-index: 9999 !important; /* Ensure tooltip is above other elements */
     }
     `;
     document.head.appendChild(style);

@@ -4,6 +4,9 @@
     overflow-x: hidden;
     max-width: 1798px;
 }
+.project-list > div:first-of-type{
+    height: 710px;
+}
 
 .page-heading{
     margin: 30px 0 10px;
@@ -58,6 +61,9 @@
 .ag-header-row.ag-header-row-column{
     color: var(--table-text-color);
 }
+.ag-paging-panel{
+    flex-wrap: wrap;
+}
 
 .search-container{
     display: flex;
@@ -94,6 +100,7 @@
 
  .ag-layout-normal {
     border-radius: 0;
+    background-color:var(--table-body);
 }
 
 #my-grid{
@@ -105,11 +112,19 @@
     display: none;
 }
 
+.ag-header{
+    background-color: transparent;
+}
 .ag-header-container{
     background-color: var(--table-body);
     width: 1688px !important;
 }
-
+.ag-cell{
+border-bottom: 1px solid #babfc7;
+}
+.ag-row{
+    border-bottom:none ;
+}
 .ag-header-row .ag-header-row-column{
     width: 100% !important;
 
@@ -119,27 +134,33 @@ width: 1688px !important;
 /* background-color: white; */
 }
 div[aria-colindex="2"]{
-    width: 260px !important;
+    left: 198px !important;
 }
 div[aria-colindex="3"]{
-    left: 460px !important;
-    width: 155px !important;
+     left: 396px !important; 
+    width: 240px !important;
 }
+
 div[aria-colindex="4"]{
-    width: 260px !important;
-    left: 615px !important;
+    /* width: 260px !important; */
+    left: 634px !important;
 }
 div[aria-colindex="5"]{
-    left: 876px !important;
+    left: 832px !important;
+    width: 268px !important;
 }
 div[aria-colindex="6"]{
-    left: 1078px !important;
+    left: 1098px !important;
+    width: 270px !important;
 }
 div[aria-colindex="7"]{
-    left: 1282px !important;
+    left: 1366px !important;
 }
 div[aria-colindex="8"]{
-    left:1488px !important;
+    left:1564px !important;
+}
+div[aria-colindex="9"]{
+left:1762px !important;
 }
 
 .filter-box{
@@ -149,7 +170,9 @@ div[aria-colindex="8"]{
 }
 
 .toggle-column{
-    top: 67px;
+    border: 1px solid var(--spectrum-gray-200);
+    border-radius: 3px;
+    top: 68px;
     z-index: 100;
     background-color: var(--input-color);
   visibility: visible;
@@ -196,5 +219,38 @@ div[aria-colindex="8"]{
 .column-filter-box:hover{
     cursor: pointer;
 }
+.status-indicator{
+    position: relative;
+    top: 15px;
+    left: 36px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
 
+@keyframes pulse {
+    0%{
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    50%{
+        transform: scale(1.4);
+        opacity: 0.6;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+}
+@media(width <= 570px){
+    .project-list > div:first-of-type {
+        height: 770px;
+    }
+    .ag-paging-panel{
+        height: 150px;
 
+}
