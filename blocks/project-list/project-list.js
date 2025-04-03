@@ -149,11 +149,14 @@ export default function decorate(block) {
       const regionIndex = columnDefs.findIndex((col) => col.field === 'Region (Project)');
       const managerIndex = columnDefs.findIndex((col) => col.field === 'Project manager (Project)');
       const [regionColumn] = columnDefs.splice(regionIndex, 1);
-      columnDefs.splice(managerIndex, 0, regionColumn);
+      columnDefs.splice(managerIndex, 0 , regionColumn);
       console.log(columnDefs);
       
+      const originalData = JSON.parse(JSON.stringify(data));
+      
+      // Remove DR numbers from display data only
       data.forEach((row) => row.Project = row.Project.replace(/\|?\s*DR\d+/g,'').trim());
-    
+      console.log(data)
     const gridOptions = {
       columnDefs,
       rowData: processedData,
@@ -190,8 +193,8 @@ export default function decorate(block) {
     gridApi.addEventListener('rowClicked', (event) => {
       const projectName = event.data.Project;
       if (projectName) {
-        // Find the original data row to extract DR number
-        const originalRow = data.find(d => d.Project.includes(projectName));
+        // Find the original data row with DR number from the preserved originalData array
+        const originalRow = originalData.find(d => d.Project.includes(projectName));
         const drNumber = originalRow ? getDRNumber(originalRow.Project) : '';
         const drParam = drNumber ? `&dr-number=${drNumber}` : '';
         
