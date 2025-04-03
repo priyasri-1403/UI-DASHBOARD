@@ -84,6 +84,23 @@ export default function decorate(block) {
     'Total',
   ];
 
+  function statuscellRenderer(params){
+    const statusColor = {
+      Green:"green",
+      Red:"red",
+      Yellow:"yellow",
+      Ember:"orange",
+
+    }
+    const color = statusColor[params.value];
+    const indicator = document.createElement("div");
+    indicator.className="status-indicator";
+    indicator.style.backgroundColor = color;
+    return indicator;
+
+  }
+
+ 
   fetchProjectData().then((data) => {
     console.log('Project data for grid:', data);
     
@@ -125,21 +142,28 @@ export default function decorate(block) {
         }
       });
 
+
+    
+
+
       const regionIndex = columnDefs.findIndex((col) => col.field === 'Region (Project)');
       const managerIndex = columnDefs.findIndex((col) => col.field === 'Project manager (Project)');
       const [regionColumn] = columnDefs.splice(regionIndex, 1);
-      columnDefs.splice(managerIndex, 0 , regionColumn);
+      columnDefs.splice(managerIndex, 0, regionColumn);
       console.log(columnDefs);
       
       data.forEach((row) => row.Project = row.Project.replace(/\|?\s*DR\d+/g,'').trim());
-    console.log(data)
+    
     const gridOptions = {
       columnDefs,
       rowData: processedData,
       rowSelection: 'single',
+      pagination: true,
+      paginationPageSizeSelector: [10,20,30],
+      paginationPageSize: 10,
       getRowClass: () => 'clickable-row',
       tooltipShowDelay: 0,
-      tooltipHideDelay: 2000,
+      tooltipHideDelay:5000,
     };
 
     // eslint-disable-next-line no-undef
@@ -153,8 +177,8 @@ export default function decorate(block) {
     background-color:var(--row-hover-color);
     }
     .ag-tooltip-custom, .ag-tooltip { /* Target default/custom tooltip classes */
-      background-color: #333 !important;
-      color: #fff !important;
+      background-color: var(--toolpoint-color) !important;
+      color: var(--toolpoint-txt-color) !important;
       border: 1px solid #555 !important;
       padding: 5px 10px !important;
       border-radius: 4px !important;

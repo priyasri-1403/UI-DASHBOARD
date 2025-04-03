@@ -521,4 +521,14 @@ header nav .nav-tools {
     transition: width 0.3s ease ,margin-left 0.3s ease;
   }
 
+  header:has(nav[aria-expanded="true"]) ~ footer{
+    margin-left: 270px;
+    transition:width 0.3s ease ,margin-left 0.3s ease;
+  }
+  
+  header:has(nav[aria-expanded="false"]) ~ footer{
+    margin-left: 69px;
+    transition: width 0.3s ease ,margin-left 0.3s ease;
+  }
+
   }

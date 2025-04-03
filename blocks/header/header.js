@@ -110,11 +110,19 @@ function listenEvents(block) {
   });
 
   block.querySelector('.dark-btn')?.addEventListener('click', () => {
-    document.body.classList.add('dark-theme');
+     document.body.classList.add('dark-theme');
+    localStorage.setItem("theme",'dark-theme');
+
+
   });
 
   block.querySelector('.light-btn')?.addEventListener('click', () => {
     document.body.classList.remove('dark-theme');
+    localStorage.removeItem("theme");
+    // document.body.classList.add('light-theme');
+   
+
+
   });
 }
 
@@ -177,7 +185,13 @@ function changeMenuStructure(block) {
     // }
   }
 }
-
+function setTheme(){
+  document.body.classList.remove("dark-theme");
+  if(localStorage.getItem("theme")){
+    document.body.classList.add(localStorage.getItem("theme"));
+  }
+  
+}
 function setNavState(nav) {
   const navState = localStorage.getItem('isExpanded');
   if (!navState) {
@@ -191,6 +205,7 @@ function setNavState(nav) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
@@ -311,6 +326,7 @@ export default async function decorate(block) {
   createThemeBox(block);
 
   listenEvents(block);
-
+  
+  setTheme();
   setNavState(nav);
 }
