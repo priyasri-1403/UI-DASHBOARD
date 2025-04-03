@@ -7,11 +7,41 @@
 
 }
 
-@media (width >= 1024px) {
+.custom-toolbar {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.25rem 0 0 0;
+    justify-content: flex-end;
+}
+.graph .graph-container {
+    flex-direction: column;
+    justify-content: right;
+}
+
+.custom-toolbar select {
+    border: 1px solid white;
+    border-radius: 4px;
+    background-color: transparent;
+    color: white;
+    height: 1.5rem;
+}
+
+.custom-toolbar select option {
+    color: black;
+}
+
+.no-data {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 0 0;
+}
+
+@media (width >=1024px) {
     .graph-wrapper {
         max-width: 89%;
         width: 49%;
     }
+  
 }
 
 .apexcharts-menu {
