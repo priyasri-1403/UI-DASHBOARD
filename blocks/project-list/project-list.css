@@ -205,6 +205,7 @@ left:1762px !important;
    scrollbar-width: none;
 }
 .ag-paging-panel{
+    color: var(--pagination-color);
     border-top: none;
 }
 

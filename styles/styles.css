@@ -43,6 +43,7 @@
   --table-footer:var(--spectrum-white-100);
   --side-menu-color:var(--spectrum-white-100);
   --list-active-color:var(--spectrum-mist-100);
+  --pagination-color:var(--spectrum-black-100);
   --border-color:var(--spectrum-white-100);
   --input-color:var(--spectrum-white-100);
   --toolpoint-color:var(--spectrum-black-100);
@@ -114,6 +115,7 @@ body.appear {
   --table-body:var(--spectrum-blue-200);
   --table-text-color:var(--spectrum-gray-200);
   --side-menu-color:var(--spectrum-blue-200);
+  --pagination-color:var(--spectrum-white-100);
   --input-color:var(--spectrum-blue-500);
   --row-hover-color : var(--spectrum-blue-500);
 
@@ -128,6 +130,9 @@ body.appear {
 
 
 
+}
+body.dark-theme .ag-picker-field-wrapper{
+  background-color: var(--dark-color);
 }
 
 header {
