@@ -32,7 +32,7 @@
   font-size: 1.8rem;
   font-weight: 800;
   margin: 0.25rem 0;
-  color: #00b3ff;
+  color:var(--project-title-color);
   font-family: var(--body-font-family);
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -41,7 +41,7 @@
 
 .project-description {
   font-size: 1rem;
-  color: #bab4b4;
+  color: var(--project-description-color);
   margin: 0.25rem 0 0.75rem;
   font-weight: 400;
   word-wrap: break-word;
@@ -53,6 +53,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 163px;
   margin-top: 1rem;
   width: 100%;
   box-sizing: border-box;
@@ -63,9 +64,10 @@
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
-  background-color: rgba(20, 20, 30, 0.4);
+  background-color:var(--project-status-color);
+  box-shadow:2px 2px 3px var(--project-status-shadow-color);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+ 
   position: relative;
   width: 100%;
   min-width: 230px;
@@ -105,7 +107,7 @@
 .status-heading {
   font-size: 0.7rem;
   font-weight: 600;
-  color: #bab4b4;
+  color:var(--project-description-color);
   text-transform: uppercase;
   letter-spacing: 0.7px;
   margin-bottom: 4px;
@@ -118,18 +120,18 @@
   transition: color 0.2s ease;
 }
 
-.project-status-wrapper.status-red .status-column { border-left-color: #ff1529; }
-.project-status-wrapper.status-amber .status-column { border-left-color: #ff9e0c; }
+.project-status-wrapper.status-red .status-column { border-left-color: var(--project-curr-status-border); }
+.project-status-wrapper.status-amber .status-column { border-left-color: var(--project-overall-status-border); }
 .project-status-wrapper.status-green .status-column { border-left-color: #00c875; }
 
-.project-status-wrapper.status-red .status-icon::before { background-color: #ff1529; }
-.project-status-wrapper.status-amber .status-icon::before { background-color: #ff9e0c; }
+.project-status-wrapper.status-red .status-icon::before { background-color:var(--project-curr-status-icon-color); }
+.project-status-wrapper.status-amber .status-icon::before { background-color: var(--project-overall-status-label-color); }
 .project-status-wrapper.status-green .status-icon::before { background-color: #00c875; }
 
 .project-status-wrapper.status-red .current-status-label,
-.project-status-wrapper.status-red .overall-status-label { color: #ff4563; }
+.project-status-wrapper.status-red .overall-status-label { color: var(--project-curr-status-label-color); }
 .project-status-wrapper.status-amber .current-status-label,
-.project-status-wrapper.status-amber .overall-status-label { color: #ffb347; }
+.project-status-wrapper.status-amber .overall-status-label { color: var(--project-overall-status-label-color); }
 .project-status-wrapper.status-green .current-status-label,
 .project-status-wrapper.status-green .overall-status-label { color: #d7ffc8; }
 

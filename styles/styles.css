@@ -10,10 +10,17 @@
   --spectrum-blue-300: #232b3e;
   --spectrum-blue-400: #020910;
   --spectrum-blue-500:#12161f;
+  --spectrum-blue-600:#00b3ff;
+  --spectrum-sky-300: #64b5f6;
+  --spectrum-sky-400: #90caf9;
+  --spectrum-gray-25: #eceef1;
+  --spectrum-gray-50: #f1f1f1;
   --spectrum-gray-75:#f0f0f0;
   --spectrum-gray-100: #a5abb1;
   --spectrum-gray-200: #96a2b4;
+  --spectrum-gray-300: rgb(70 72 76);
   --spectrum-gray-500:#b7c0ce33;
+  --spectrum-gray-900: #2d3748;
   --spectrum-lavender-100: #ecf0f4;
   --spectrum-charcoal-100: #555;
   --spectrum-lavender-200: #dae1f3;
@@ -21,6 +28,14 @@
   --spectrum-violet-50:#f2fafe;
   --spectrum-violet-100: #323134;
   --spectrum-violet-200:#141d33;
+  --spectrum-shadow-color: rgba(0, 0, 0, 0.5);
+  --spectrum-rose-500: #ff4563;
+  --spectrum-red-600: #ff1529;
+  --spectrum-amber-500: #ff9e0c;
+  --spectrum-indigo-800: #3f4c6b;
+
+
+  
 
   
 
@@ -51,11 +66,31 @@
   --row-hover-color : var(--spectrum-gray-75);
   --svg-icon-color:brightness(0) saturate(100%) invert(6%) sepia(0%) hue-rotate(0deg);
 
+ /* dashboard page theming */
+ --project-title-color:var(--spectrum-blue-600);
+ --project-curr-status-label-color:var(--spectrum-rose-500);
+ --project-overall-status-label-color:var(--spectrum-amber-500);
+ --project-description-color:var(--spectrum-black-100);
+ --project-status-color:var(--spectrum-white-100);
+ --project-curr-status-icon-color:var(--spectrum-red-600);
+ --project-status-shadow-color:var(--spectrum-shadow-color);
+--project-curr-status-border:var(--spectrum-red-600);
+--project-overall-status-border:var(--spectrum-amber-500);
+--graph-bg-color:var(--spectrum-white-100);
+--insight-color:var(--spectrum-white-100);
+--insight-heading-color:var(--spectrum-gray-300);
+--skill-pill-color:var(--spectrum-gray-50);
+--pill-text-color:var(--spectrum-black-100);
+--pill-border:var(--spectrum-black-100);
+--sprint-detail-color:var(--spectrum-gray-25);
+--progress-bar-color:var(--spectrum-gray-25);
+--pill-hover-color:var(--spectrum-gray-100);
+
 
  
 
   /* fonts */
-  --body-font-family: "Adobe Clean";
+  --body-font-family: "system-ui";
   --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
 
   /* body sizes */
@@ -105,6 +140,7 @@ body.appear {
   --background-color:var(--spectrum-blue-300);
   --icon-color: var(--spectrum-white-100);
   --heading-color:var(--spectrum-gray-100);
+  --spectrum-shadow-color: rgb(191 180 180 / 50%);
   --border-color:var(--spectrum-violet-100);
   --svg-icon-color:brightness(0) saturate(100%) invert(95%) sepia(0%) hue-rotate(0deg); /* Default: White Icons (Dark Mode) */
 
@@ -127,6 +163,27 @@ body.appear {
   --list-active-color:var(--spectrum-white-100);
   --toolpoint-color:var(--spectrum-white-100);
   --toolpoint-txt-color:var(--spectrum-black-100);
+  
+ /* dashboard page theming */
+ --project-description-color:var(--spectrum-white-100);
+ --project-status-color:var(--spectrum-blue-200);
+ --project-status-shadow-color:var(--spectrum-shadow-color);
+ --graph-bg-color:var(--spectrum-blue-200);
+ --insight-color:var(--spectrum-blue-200);
+--insight-heading-color:var(--spectrum-sky-400);
+--skill-pill-color:var(--spectrum-gray-900);
+--pill-text-color:var(--spectrum-sky-300);
+--pill-border:var(--spectrum-indigo-800);
+--sprint-detail-color:var( --spectrum-gray-900);
+--progress-bar-color:var(--spectrum-gray-900);
+--pill-hover-color:var(--spectrum-indigo-800);
+
+
+
+
+
+
+
 
 
 
