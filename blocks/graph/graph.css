@@ -1,3 +1,25 @@
+/* Collapsed and expanded--should move to global style*/
+.section.graph-container.project-insight-container {
+    flex-wrap: nowrap;
+
+    &.expanded {
+        flex-wrap: wrap;
+
+        .graph-wrapper {
+            min-width: 90%;
+        }
+
+        .project-insight-wrapper {
+            width: 95%;
+        }
+    }
+}
+
+.graph-wrapper {
+    min-width: 50%;
+    transition: all 0.4s ease-in-out;
+}
+
 .graph-wrapper {
     border-radius: 0.75rem;
     background-color: #1a202e;
@@ -7,12 +29,17 @@
 
 }
 
+.apexcharts-title-text {
+    font-size: 1rem;
+}
+
 .custom-toolbar {
     display: flex;
     gap: 1rem;
-    margin-top: 0.25rem 0 0 0;
     justify-content: flex-end;
+    margin: 0.25rem 0 0 0;
 }
+
 .graph .graph-container {
     flex-direction: column;
     justify-content: right;
@@ -36,12 +63,36 @@
     margin: 2rem 0 0 0;
 }
 
+.expand {
+    display: none;
+}
+
+.expand img {
+    width: 20px;
+    height: 20px;
+}
+
 @media (width >=1024px) {
+
+    .apexcharts-title-text {
+        font-size: 1.25rem;
+    }
+
     .graph-wrapper {
         max-width: 89%;
+        min-width: 40%;
         width: 49%;
+        transition: all 0.4s ease-in-out;
     }
-  
+
+    .expand {
+        display: block;
+        margin: 0;
+        padding: 0;
+        min-width: 20px;
+        border-radius: 0;
+        background-color: transparent;
+    }
 }
 
 .apexcharts-menu {
