@@ -123,7 +123,7 @@ export default function decorate(block) {
       }
       return row;
     });
-
+  
     const columnDefs = Object.keys(processedData[0] || {})
       .filter((key) => !nonHeaders.includes(key))
       .map((key) => {
@@ -142,7 +142,6 @@ export default function decorate(block) {
           tooltipValueGetter: key === 'Project' ? (params) => params.value : undefined,
         }
       });
-
 
 
 

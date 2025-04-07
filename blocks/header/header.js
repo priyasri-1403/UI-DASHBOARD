@@ -105,13 +105,18 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 function listenEvents(block) {
-  block.querySelector('.user-wrapper img')?.addEventListener('click', () => {
+  block.querySelector('.user-wrapper img')?.addEventListener('click', (e) => {
+  
     block.querySelector('.theme-wrap').classList.toggle('hide');
+    setBorder(block);
   });
 
   block.querySelector('.dark-btn')?.addEventListener('click', () => {
      document.body.classList.add('dark-theme');
     localStorage.setItem("theme",'dark-theme');
+    
+  block.querySelector('.light-box').classList.remove('selected');
+  block.querySelector('.dark-box').classList.add('selected');
 
 
   });
@@ -119,6 +124,8 @@ function listenEvents(block) {
   block.querySelector('.light-btn')?.addEventListener('click', () => {
     document.body.classList.remove('dark-theme');
     localStorage.removeItem("theme");
+    block.querySelector('.dark-box').classList.remove('selected');
+    block.querySelector('.light-box').classList.add('selected');
     // document.body.classList.add('light-theme');
    
 
@@ -130,20 +137,22 @@ function createThemeBox(block) {
   const userWrap = block.querySelector('.user-wrapper');
   const themeWrap = document.createElement('div');
   themeWrap.classList = 'theme-wrap hide';
-  const lightBtn = document.createElement('button');
-  lightBtn.className = 'light-btn';
-  lightBtn.textContent = 'Light';
-  const lightBtnImg = document.createElement('img');
-  lightBtnImg.src = '../../icons/sun.svg';
+  
+themeWrap.innerHTML = `
+  <div class="light-btn ">
+  <div class="light-box "> 
+    <img class="light-img" src="../../icons/light-theme.png" alt="Light Theme" />
+    </div>
+    <span class="light-span">Light</span>
+  </div>
+  <div class="dark-btn">
+  <div class="dark-box">
+    <img class="dark-img" src="../../icons/dark-theme.png" alt="Dark Theme" />
+    </div>
+    <span class ="dark-span">Dark</span>
+  </div>
+`;
 
-  const darkBtn = document.createElement('button');
-  darkBtn.className = 'dark-btn';
-  darkBtn.textContent = 'Dark';
-  const darkBtnImg = document.createElement('img');
-  darkBtnImg.src = '../../icons/moon.svg';
-
-  themeWrap.appendChild(lightBtn);
-  themeWrap.appendChild(darkBtn);
 
   userWrap.appendChild(themeWrap);
 }
@@ -187,11 +196,30 @@ function changeMenuStructure(block) {
 }
 function setTheme(){
   document.body.classList.remove("dark-theme");
+
   if(localStorage.getItem("theme")){
     document.body.classList.add(localStorage.getItem("theme"));
   }
+
   
 }
+
+function setBorder(block){
+  
+  block.querySelector('.dark-box').classList.remove('selected');
+  console.log("3")
+  block.querySelector('.light-box').classList.add('selected');
+
+  if(localStorage.getItem("theme")){
+    block.querySelector('.dark-box').classList.add('selected');
+    block.querySelector('.light-box').classList.remove('selected');
+  }
+
+  
+}
+
+
+
 function setNavState(nav) {
   const navState = localStorage.getItem('isExpanded');
   if (!navState) {
@@ -290,8 +318,10 @@ export default async function decorate(block) {
   document.getElementById('nav').prepend(menuWrap);
 
   // implementing the swap-vert functionality
-  block.querySelector('.nav-tools').addEventListener('click', () => {
+  block.querySelector('.nav-tools').addEventListener('click', (e) => {
     userWrapper.classList.toggle('hide');
+ 
+
   });
 
   const admin = document.createElement('div');

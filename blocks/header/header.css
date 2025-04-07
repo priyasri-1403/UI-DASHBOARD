@@ -204,13 +204,58 @@ header nav[aria-expanded="false"] .nav-sections ul li img {
 .theme-wrap{
       display: flex;
       position: absolute;
-      width: 126px;
-      flex-direction: column;
+     background-color: var(--side-menu-color);
+    box-shadow: 1px 2px 2px var(--project-status-shadow-color);
       top: 114px;  
       border-radius: 0 0 8px 8px;
       right: 33px;
       align-items: center;
-      background-color: #9a9aa6;
+     
+}
+.selected{
+  border: 2px solid blue;
+
+}
+.light-btn{
+margin: 5px 6px;
+}
+.light-box{
+  height: 158px;
+    width: 245px;
+    margin: 4px 6px;
+}
+.light-img{
+  height: 100%;
+  width: 100%;
+ 
+}
+.dark-box{
+  height: 158px;
+    width: 245px;
+    margin: 4px 6px;
+}
+.dark-img{
+  height: 100%;
+  width: 100%;
+
+
+}
+.theme-wrap span{
+  color: var(--text-color);
+}
+.light-span{
+  text-align: center;
+    margin-top: 8px;
+    padding-right: 0;
+    font-weight: 500;
+}
+.dark-span{
+  text-align: center;
+    margin-top: 8px;
+    padding-right: 0;
+    font-weight: 500;
+
+
 }
 
 .theme-wrap.hide{
@@ -218,15 +263,15 @@ header nav[aria-expanded="false"] .nav-sections ul li img {
 }
 
 .light-btn{
-  background-color: white;
-  color: black;
+  display: flex;
+      flex-direction: column;
 
 
 }
 
 .dark-btn{
-  background-color: black;
-  color: white;
+  display: flex ;
+      flex-direction: column;
   
 }
 

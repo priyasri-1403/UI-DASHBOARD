@@ -32,6 +32,7 @@
   --spectrum-rose-500: #ff4563;
   --spectrum-red-600: #ff1529;
   --spectrum-amber-500: #ff9e0c;
+  --spectrum-indigo-700:#414e6b;
   --spectrum-indigo-800: #3f4c6b;
 
 
@@ -85,6 +86,8 @@
 --sprint-detail-color:var(--spectrum-gray-25);
 --progress-bar-color:var(--spectrum-gray-25);
 --pill-hover-color:var(--spectrum-gray-100);
+/* --theme-bg-color:var(--spectrum-white-100); */
+
 
 
  
@@ -177,6 +180,7 @@ body.appear {
 --sprint-detail-color:var( --spectrum-gray-900);
 --progress-bar-color:var(--spectrum-gray-900);
 --pill-hover-color:var(--spectrum-indigo-800);
+--theme-bg-color:var(--spectrum-indigo-700);
 
 
 
