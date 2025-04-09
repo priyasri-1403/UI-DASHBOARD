@@ -1,20 +1,62 @@
 .graph-wrapper {
     border-radius: 0.75rem;
-    background-color: #1a202e;
+    background-color: var(--graph-bg-color);
+    box-shadow: 1px 2px 2px var(--project-status-shadow-color);
     height: auto;
     max-width: 100%;
-    margin-top: 2rem;
     padding: 1.5rem;
 
 }
+.apexcharts-svg text{
+    fill: var(--text-color);
+}
+.apexcharts-legend-text {
+color: var(--text-color) !important;
+}
 
-@media (min-width: 1024px) {
+.custom-toolbar {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.25rem 0 0 0;
+    justify-content: flex-end;
+}
+.graph .graph-container {
+    flex-direction: column;
+    justify-content: right;
+}
+.apexcharts-gridlines-horizontal line{
+    stroke: var(--text-color);
+
+}
+.custom-toolbar select {
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    background-color: transparent;
+    color: var(--text-color);
+    height: 1.5rem;
+}
+.apexcharts-grid-borders line{
+    stroke: var(--text-color);
+}
+.apexcharts-inner.apexcharts-graphical line{
+    stroke: var(--text-color);
+}
+.custom-toolbar select option {
+    color: black;
+}
+
+.no-data {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 0 0;
+}
+
+@media (width >=1024px) {
     .graph-wrapper {
-        display: inline-block;
-        margin-right:2rem;
-        min-width: 50%;
-        padding: 2rem;
+        max-width: 89%;
+        width: 49%;
     }
+  
 }
 
 .apexcharts-menu {
@@ -28,4 +70,8 @@
 
 .apexcharts-menu .apexcharts-menu-item {
     text-align: left;
+}
+
+.apexcharts-yaxis-label {
+    color: red !important;
 }

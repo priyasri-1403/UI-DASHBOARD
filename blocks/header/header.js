@@ -73,6 +73,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   const button = nav.querySelector('.nav-hamburger button');
   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  localStorage.setItem('isExpanded', nav.getAttribute('aria-expanded'));
   toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
   button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
   // enable nav dropdown keyboard accessibility
@@ -104,16 +105,31 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 function listenEvents(block) {
-  block.querySelector('.user-wrapper img')?.addEventListener('click', () => {
+  block.querySelector('.user-wrapper img')?.addEventListener('click', (e) => {
+  
     block.querySelector('.theme-wrap').classList.toggle('hide');
-  });
-
-  block.querySelector('.light-btn')?.addEventListener('click', () => {
-    document.body.classList.add('light-theme');
+    setBorder(block);
   });
 
   block.querySelector('.dark-btn')?.addEventListener('click', () => {
-    document.body.classList.remove('light-theme');
+     document.body.classList.add('dark-theme');
+    localStorage.setItem("theme",'dark-theme');
+    
+  block.querySelector('.light-box').classList.remove('selected');
+  block.querySelector('.dark-box').classList.add('selected');
+
+
+  });
+
+  block.querySelector('.light-btn')?.addEventListener('click', () => {
+    document.body.classList.remove('dark-theme');
+    localStorage.removeItem("theme");
+    block.querySelector('.dark-box').classList.remove('selected');
+    block.querySelector('.light-box').classList.add('selected');
+    // document.body.classList.add('light-theme');
+   
+
+
   });
 }
 
@@ -121,20 +137,22 @@ function createThemeBox(block) {
   const userWrap = block.querySelector('.user-wrapper');
   const themeWrap = document.createElement('div');
   themeWrap.classList = 'theme-wrap hide';
-  const lightBtn = document.createElement('button');
-  lightBtn.className = 'light-btn';
-  lightBtn.textContent = 'Light';
-  const lightBtnImg = document.createElement('img');
-  lightBtnImg.src = '../../icons/sun.svg';
+  
+themeWrap.innerHTML = `
+  <div class="light-btn ">
+  <div class="light-box "> 
+    <img class="light-img" src="../../icons/light-theme.png" alt="Light Theme" />
+    </div>
+    <span class="light-span">Light</span>
+  </div>
+  <div class="dark-btn">
+  <div class="dark-box">
+    <img class="dark-img" src="../../icons/dark-theme.png" alt="Dark Theme" />
+    </div>
+    <span class ="dark-span">Dark</span>
+  </div>
+`;
 
-  const darkBtn = document.createElement('button');
-  darkBtn.className = 'dark-btn';
-  darkBtn.textContent = 'Dark';
-  const darkBtnImg = document.createElement('img');
-  darkBtnImg.src = '../../icons/moon.svg';
-
-  themeWrap.appendChild(lightBtn);
-  themeWrap.appendChild(darkBtn);
 
   userWrap.appendChild(themeWrap);
 }
@@ -176,12 +194,46 @@ function changeMenuStructure(block) {
     // }
   }
 }
+function setTheme(){
+  document.body.classList.remove("dark-theme");
 
+  if(localStorage.getItem("theme")){
+    document.body.classList.add(localStorage.getItem("theme"));
+  }
+
+  
+}
+
+function setBorder(block){
+  
+  block.querySelector('.dark-box').classList.remove('selected');
+  console.log("3")
+  block.querySelector('.light-box').classList.add('selected');
+
+  if(localStorage.getItem("theme")){
+    block.querySelector('.dark-box').classList.add('selected');
+    block.querySelector('.light-box').classList.remove('selected');
+  }
+
+  
+}
+
+
+
+function setNavState(nav) {
+  const navState = localStorage.getItem('isExpanded');
+  if (!navState) {
+    nav.setAttribute('aria-expanded', 'true');
+    return;
+  }
+  nav.setAttribute('aria-expanded', navState);
+}
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
@@ -229,10 +281,6 @@ export default async function decorate(block) {
   hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
-
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
@@ -270,8 +318,10 @@ export default async function decorate(block) {
   document.getElementById('nav').prepend(menuWrap);
 
   // implementing the swap-vert functionality
-  block.querySelector('.nav-tools').addEventListener('click', () => {
+  block.querySelector('.nav-tools').addEventListener('click', (e) => {
     userWrapper.classList.toggle('hide');
+ 
+
   });
 
   const admin = document.createElement('div');
@@ -306,4 +356,7 @@ export default async function decorate(block) {
   createThemeBox(block);
 
   listenEvents(block);
+  
+  setTheme();
+  setNavState(nav);
 }
