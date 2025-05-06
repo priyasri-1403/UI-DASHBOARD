@@ -1,3 +1,6 @@
+.project-list-wrapper {
+    padding: 2rem;
+}
 .project-list{
     overflow-x: hidden;
     max-width: 1798px;
@@ -280,4 +283,5 @@ left:1762px !important;
     .ag-paging-panel{
         height: 150px;
 
+}
 }
