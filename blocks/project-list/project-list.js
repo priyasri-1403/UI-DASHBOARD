@@ -1,7 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 import { fetchAndStoreData, getStoredData, hasStoredData, storeProjectData } from '../../utils/datafetch.js';
+import { can } from '../../utils/auth.js';
 
 export default function decorate(block) {
+  // Enforce RBAC: only users with permission can see the project list
+  if (!can('view_project_list')) {
+    // You can customize this message/UI as needed
+    block.innerHTML = '<div class="no-access">You do not have access to view projects.</div>';
+    return;
+  }
+
   const tableContainer = block.querySelector('div');
   const url = block.querySelector('.button-container a');
 
